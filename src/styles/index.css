@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-paper: #f1eee6;
+  --color-primary: #5e83a0;
+  --color-clay: #b1594f;
+  --color-moss: #9daf73;
+  --color-ink: #2f3437;
+  --color-line: #d8d8d2;
+  --color-card: #faf9f6;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  overflow-x: hidden;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+.font-cn-serif {
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  display: block;
+}
+
+::selection {
+  background: rgba(94, 131, 160, 0.22);
+}
+
+.paper-texture {
+  background-image:
+    radial-gradient(circle at 18% 22%, rgba(47, 52, 55, 0.065) 0 0.85px, transparent 1px),
+    radial-gradient(circle at 78% 12%, rgba(177, 89, 79, 0.05) 0 0.85px, transparent 1px),
+    radial-gradient(circle at 52% 76%, rgba(94, 131, 160, 0.052) 0 0.8px, transparent 1px),
+    linear-gradient(115deg, rgba(255, 255, 255, 0.24), rgba(177, 89, 79, 0.025) 42%, rgba(47, 52, 55, 0.018));
+  background-size:
+    18px 18px,
+    27px 27px,
+    36px 36px,
+    100% 100%;
+}
+
+.paper-stains {
+  background-image:
+    radial-gradient(ellipse at 12% 16%, rgba(177, 89, 79, 0.045), transparent 34%),
+    radial-gradient(ellipse at 84% 22%, rgba(94, 131, 160, 0.045), transparent 32%),
+    radial-gradient(ellipse at 32% 92%, rgba(47, 52, 55, 0.035), transparent 36%),
+    radial-gradient(ellipse at 68% 70%, rgba(216, 216, 210, 0.34), transparent 42%);
+  mix-blend-mode: multiply;
+}
+
+.paper-vignette {
+  background:
+    linear-gradient(to right, rgba(47, 52, 55, 0.045), transparent 16%, transparent 84%, rgba(47, 52, 55, 0.04)),
+    linear-gradient(to bottom, rgba(47, 52, 55, 0.035), transparent 18%, transparent 82%, rgba(47, 52, 55, 0.055));
+}
+
+.axis-grid {
+  background-image:
+    linear-gradient(rgba(47, 52, 55, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(47, 52, 55, 0.04) 1px, transparent 1px),
+    linear-gradient(rgba(94, 131, 160, 0.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(94, 131, 160, 0.066) 1px, transparent 1px);
+  background-position: center top;
+  background-size:
+    72px 72px,
+    72px 72px,
+    288px 288px,
+    288px 288px;
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 92%);
+}
+
+.dotted-field {
+  background-image:
+    radial-gradient(circle, rgba(94, 131, 160, 0.11) 0 0.72px, transparent 0.85px),
+    radial-gradient(circle, rgba(47, 52, 55, 0.055) 0 0.62px, transparent 0.78px);
+  background-position:
+    18px 22px,
+    6px 8px;
+  background-size:
+    34px 34px,
+    90px 90px;
+  mask-image:
+    radial-gradient(ellipse at 22% 28%, #000 0%, transparent 48%),
+    radial-gradient(ellipse at 86% 72%, #000 0%, transparent 42%),
+    linear-gradient(to bottom, transparent, #000 18%, #000 88%, transparent);
+}
+
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.42rem;
+  padding: 0.45rem 0;
+  transition: color 220ms ease;
+}
+
+.nav-link::after {
+  position: absolute;
+  bottom: 0.08rem;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  content: "";
+  background: currentColor;
+  opacity: 0.48;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 240ms ease;
+}
+
+.nav-link:hover,
+.nav-link.is-active {
+  color: var(--color-primary);
+}
+
+.nav-link:hover::after,
+.nav-link.is-active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.nav-index {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: rgba(94, 131, 160, 0.74);
+}
+
+.line-clamp-1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.page-fade {
+  animation: pageFade 520ms ease both;
+}
+
+.image-frame {
+  transition:
+    transform 300ms ease,
+    box-shadow 300ms ease,
+    border-color 300ms ease;
+}
+
+@keyframes pageFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .axis-grid {
+    background-size: 48px 48px;
+  }
+}
