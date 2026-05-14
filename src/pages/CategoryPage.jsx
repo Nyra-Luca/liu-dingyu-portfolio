@@ -101,8 +101,7 @@ function CategoryPage({ category }) {
           className="mb-8 flex items-end justify-between gap-6 border-b border-line/70 pb-5"
           variants={fadeUp}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.35 }}
+          animate="visible"
         >
           <div>
             <div className="flex items-center gap-3">
@@ -123,8 +122,8 @@ function CategoryPage({ category }) {
           className="grid gap-8 md:grid-cols-2 xl:grid-cols-3"
           variants={staggerGroup}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.18 }}
+          animate="visible"
+          key={category}
         >
           {categoryProjects.map((project) => (
             <motion.div key={project.id} variants={fadeUp}>

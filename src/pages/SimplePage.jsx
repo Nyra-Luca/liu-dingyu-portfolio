@@ -21,13 +21,19 @@ const content = {
   },
 };
 
+const simplePageClasses = {
+  wrapper: "page-fade pt-28",
+  section: "simple-info-frame mx-auto flex max-w-5xl px-5 py-20 md:px-8",
+  panel: "flex w-full flex-col justify-start border-y border-line/80 py-14",
+};
+
 function SimplePage({ type }) {
   const page = content[type] || content.about;
 
   return (
-    <div className="page-fade min-h-[70vh] pt-28">
-      <section className="mx-auto max-w-5xl px-5 py-20 md:px-8">
-        <div className="border-y border-line/80 py-14">
+    <div className={simplePageClasses.wrapper}>
+      <section className={simplePageClasses.section}>
+        <div className={simplePageClasses.panel}>
           <SectionTitle
             eyebrow={page.eyebrow}
             title={page.title}

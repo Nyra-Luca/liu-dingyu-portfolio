@@ -166,6 +166,10 @@ img {
   animation: pageFade 520ms ease both;
 }
 
+.simple-info-frame {
+  height: 36rem;
+}
+
 .image-frame {
   transition:
     transform 300ms ease,
@@ -187,5 +191,10 @@ img {
 @media (max-width: 640px) {
   .axis-grid {
     background-size: 48px 48px;
+  }
+
+  .simple-info-frame {
+    height: auto;
+    min-height: 36rem;
   }
 }
