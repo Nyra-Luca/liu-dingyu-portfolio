@@ -1,15 +1,15 @@
+import {
+  Award,
+  BriefcaseBusiness,
+  GraduationCap,
+  Mail,
+  MapPin,
+  Phone,
+  Sparkles,
+} from "lucide-react";
 import SectionTitle from "../components/SectionTitle.jsx";
 
 const content = {
-  about: {
-    eyebrow: "About",
-    title: "Liu Dingyu / \u5218\u4e01\u745c",
-    description: "Interior Design & Landscape Design",
-    body: [
-      "This portfolio collects design studies and project proposals across commercial interiors, residential spaces, waterfront renewal, public landscape, and community-scale spatial scenes.",
-      "The work emphasizes site reading, spatial narrative, material atmosphere, and visual communication, with a quiet portfolio language suitable for future project image replacement.",
-    ],
-  },
   contact: {
     eyebrow: "Contact",
     title: "Contact",
@@ -21,13 +21,318 @@ const content = {
   },
 };
 
+const profile = {
+  name: "Liu Dingyu / 刘丁瑜",
+  role: "Interior & Environmental Design",
+  headline: "艺术设计硕士（环境设计方向）｜商业空间、居住空间与公共环境设计",
+  summary:
+    "关注商业、居住与公共环境设计，擅长底图梳理、CAD 重绘、基础建模、方案表达与效果图可视化。具备从图纸到落地配合的流程意识，重视准确性、效率与细节执行。",
+  englishSummary:
+    "Interior and environmental designer focused on commercial, residential, and public spaces, with skills in drawing coordination, modeling, visualization, and presentation support.",
+  contact: [
+    { icon: Mail, label: "Email", value: "liudingyu21@gmail.com", href: "mailto:liudingyu21@gmail.com" },
+    { icon: Phone, label: "Phone", value: "17336464991" },
+    { icon: MapPin, label: "Based in", value: "China" },
+  ],
+};
+
+const education = [
+  {
+    school: "海南师范大学",
+    degree: "艺术设计 · 环境设计方向｜硕士",
+    time: "2023.09 - 2026.07",
+    detail: "GPA 3.6/4.0｜核心课程：海南传统建筑设计实践、旅游商业空间设计实践、地域文化设计创作实践、海南民居设计实践等",
+  },
+  {
+    school: "华北科技学院",
+    degree: "环境设计｜学士",
+    time: "2017.09 - 2021.07",
+    detail: "GPA 3.66/4.0｜核心课程：室内设计、景观设计、建筑制图、人机工程学、展览展示设计、装饰概预算等",
+  },
+];
+
+const experience = [
+  {
+    company: "Benoy 贝诺建筑设计咨询（上海）有限公司",
+    role: "室内设计实习生",
+    time: "2026.01 - 2026.03",
+    points: [
+      "参与商业综合体项目多版本建筑底图校对与 CAD 重绘，梳理最新平面信息，并配合完成公区边界、红线及卫生间平面调整。",
+      "根据整理后的平面图完成多层建筑白模，配合团队制作漫游动画、扶梯调整前后对比图及彩平图。",
+      "参与室内公区分析图绘制及卫生间平面多轮修改，跟进方案更新与汇报展示支持。",
+    ],
+  },
+  {
+    company: "红星美凯龙家居集团",
+    role: "设计师助理",
+    time: "2024.07 - 2024.09",
+    points: [
+      "参与 5 个以上家装项目的前期沟通与需求提炼，协助将客户需求转化为空间方案。",
+      "独立负责 3 套全案建模渲染，曾在 1 日内加急产出对比方案并促成客户一次性签约。",
+      "建立施工问题台账，记录处理 150 多条现场冲突，通过图纸校对降低返工风险。",
+    ],
+  },
+];
+
+const projectExperience = [
+  {
+    title: "海口消博会海润珍珠品牌展厅设计",
+    role: "概念方案设计",
+    time: "2025.02 - 2025.04",
+    result:
+      "参与校企合作的国家级“消博会”品牌展厅设计课题，独立提出“品牌视觉建构化呈现”核心策略，被指导组及甲方采纳，部分概念进入最终方案。",
+  },
+  {
+    title: "福利彩票品牌零售店",
+    role: "设计助理",
+    time: "2023.09",
+    result:
+      "负责 75 平方米品牌店三维渲染与可视化，配合品牌形象升级完成快速效果图交付与当日迭代，支持项目 19 天内从设计到施工落地，最终方案获甲方一次性通过。",
+  },
+];
+
+const skillGroups = [
+  {
+    title: "Design Workflow",
+    items: ["空间规划", "方案深化", "场地分析", "图纸梳理", "汇报表达", "落地配合"],
+  },
+  {
+    title: "Software",
+    items: ["AutoCAD", "SketchUp", "3ds Max", "D5", "Enscape", "Photoshop"],
+  },
+  {
+    title: "Office & AIGC",
+    items: ["Word", "Excel", "PPT", "ChatGPT", "Codex", "Midjourney"],
+  },
+  {
+    title: "AI-assisted Workflow",
+    items: ["AI 辅助代码与网页维护", "设计文案撰写", "信息整理与表达优化"],
+  },
+];
+
+const honors = [
+  "ODA 东方设计奖一等奖",
+  "FA 国际前沿创新艺术设计大赛二等奖",
+  "华夏奖文化艺术设计大赛三等奖等多项设计竞赛奖项",
+  "CET-4 / CET-6",
+  "五次获得校级年度奖学金",
+  "中共党员 / 优秀共青团员",
+];
+
 const simplePageClasses = {
   wrapper: "page-fade pt-28",
   section: "simple-info-frame mx-auto flex max-w-5xl px-5 py-20 md:px-8",
   panel: "flex w-full flex-col justify-start border-y border-line/80 py-14",
 };
 
+function AboutPage() {
+  return (
+    <div className="page-fade pt-20 md:pt-24">
+      <section className="mx-auto max-w-7xl px-5 pb-10 pt-6 md:px-8">
+        <div className="relative overflow-hidden border-y border-line/80 py-12">
+          <div className="pointer-events-none absolute right-0 top-0 hidden h-full w-1/2 text-primary/[0.08] md:block">
+            <svg viewBox="0 0 520 260" fill="none" aria-hidden="true">
+              <path d="M80 70H380M80 70V190M160 70V190M246 70V150" stroke="currentColor" />
+              <path d="M80 132H380M246 150C296 150 334 180 342 224" stroke="currentColor" />
+              <path d="M392 70H488M440 24V116M432 70H448M440 62V78" stroke="currentColor" />
+            </svg>
+          </div>
+
+          <div className="relative grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+            <div>
+              <div className="mb-6 flex items-center gap-4">
+                <span className="relative h-3 w-3 rounded-full border border-primary/70">
+                  <span className="absolute left-1/2 top-1/2 h-px w-8 -translate-x-1/2 -translate-y-1/2 bg-primary/25" />
+                  <span className="absolute left-1/2 top-1/2 h-8 w-px -translate-x-1/2 -translate-y-1/2 bg-primary/25" />
+                </span>
+                <p className="text-xs uppercase tracking-[0.24em] text-primary">Profile / CV</p>
+                <span className="h-px flex-1 bg-line/80" />
+              </div>
+              <h1 className="text-ink">
+                <span className="font-cn-serif block text-4xl font-normal leading-none md:text-6xl">刘丁瑜</span>
+                <span className="mt-4 block font-display text-2xl uppercase tracking-[0.08em] text-primary/85 md:text-3xl">
+                  Liu Dingyu
+                </span>
+              </h1>
+              <p className="mt-5 max-w-3xl text-lg leading-8 text-clay">{profile.headline}</p>
+            </div>
+
+            <div className="rounded-lg border border-line/75 bg-white/56 p-7 leading-8 text-ink/68 backdrop-blur-[2px] lg:-mt-4">
+              <div className="mb-5 flex items-center justify-between gap-4 border-b border-line/70 pb-3">
+                <span className="text-[10px] uppercase tracking-[0.22em] text-primary">Design Position</span>
+                <span className="h-1.5 w-1.5 rounded-full bg-primary/45" />
+              </div>
+              <p>{profile.summary}</p>
+              <p className="mt-4 text-sm leading-7 text-ink/55">{profile.englishSummary}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid gap-4 border-b border-line/70 py-6 md:grid-cols-3">
+          {profile.contact.map((item) => {
+            const Icon = item.icon;
+            const value = (
+              <span className="text-sm leading-6 text-ink/72 transition hover:text-primary">{item.value}</span>
+            );
+
+            return (
+              <div key={item.label} className="flex items-center gap-3">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-line bg-white/45 text-primary">
+                  <Icon size={17} />
+                </span>
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-ink/42">{item.label}</p>
+                  {item.href ? <a href={item.href}>{value}</a> : value}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-7xl gap-8 px-5 pb-24 md:px-8 lg:grid-cols-[0.72fr_1.28fr]">
+        <aside className="space-y-8">
+          <InfoPanel icon={GraduationCap} eyebrow="Education" title="教育背景">
+            <div className="space-y-6">
+              {education.map((item) => (
+                <TimelineItem key={item.school} title={item.school} meta={`${item.degree} · ${item.time}`}>
+                  {item.detail}
+                </TimelineItem>
+              ))}
+            </div>
+          </InfoPanel>
+
+          <InfoPanel icon={Sparkles} eyebrow="Skills" title="能力结构">
+            <div className="space-y-5">
+              {skillGroups.map((group) => (
+                <div key={group.title}>
+                  <p className="mb-3 text-[10px] uppercase tracking-[0.2em] text-primary">{group.title}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {group.items.map((item) => (
+                      <span key={item} className="rounded-full border border-line bg-transparent px-3 py-1 text-xs text-ink/62">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </InfoPanel>
+
+          <InfoPanel icon={Award} eyebrow="Awards" title="荣誉奖项">
+            <ul className="space-y-3 text-sm leading-7 text-ink/68">
+              {honors.map((item) => (
+                <li key={item} className="flex gap-3">
+                  <span className="mt-3 h-1 w-1 shrink-0 rounded-full bg-primary/55" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </InfoPanel>
+        </aside>
+
+        <div className="space-y-8">
+          <InfoPanel icon={BriefcaseBusiness} eyebrow="Internship" title="实习经历">
+            <div className="space-y-7">
+              {experience.map((item) => (
+                <ExperienceBlock key={item.company} item={item} />
+              ))}
+            </div>
+          </InfoPanel>
+
+          <InfoPanel eyebrow="Selected Project Roles" title="项目经历">
+            <div className="grid gap-4 md:grid-cols-2">
+              {projectExperience.map((item) => (
+                <div key={item.title} className="rounded-lg border border-line/70 bg-white/42 p-5">
+                  <div className="mb-4 border-b border-line/65 pb-3">
+                    <p className="font-cn-serif text-xl text-ink">{item.title}</p>
+                    <p className="mt-2 text-xs uppercase leading-5 tracking-[0.16em] text-primary">
+                      {item.role} · {item.time}
+                    </p>
+                  </div>
+                  <p className="text-sm leading-7 text-ink/66">{item.result}</p>
+                </div>
+              ))}
+            </div>
+          </InfoPanel>
+
+          <InfoPanel eyebrow="Self Review" title="个人特质">
+            <div className="grid gap-4 md:grid-cols-3">
+              {[
+                ["流程意识", "理解设计与施工之间的衔接关系，关注图纸准确性与落地可行性。"],
+                ["协作学习", "学习能力强，具备良好的沟通协调能力，能快速适应多任务工作环境。"],
+                ["执行细节", "熟悉 CAD 图纸整理、基础建模及方案表达流程，具备问题记录与修改跟进能力。"],
+              ].map(([title, text]) => (
+                <div key={title} className="border-t border-line/70 pt-4">
+                  <p className="mb-2 text-sm font-medium text-ink">{title}</p>
+                  <p className="text-sm leading-7 text-ink/62">{text}</p>
+                </div>
+              ))}
+            </div>
+          </InfoPanel>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function InfoPanel({ icon: Icon, eyebrow, title, children }) {
+  return (
+    <section className="rounded-lg border border-line/75 bg-white/50 p-6 backdrop-blur-[2px]">
+      <div className="mb-6 flex items-end justify-between gap-4 border-b border-line/70 pb-4">
+        <div>
+          {eyebrow ? <p className="mb-2 text-[10px] uppercase tracking-[0.22em] text-primary">{eyebrow}</p> : null}
+          <h2 className="font-cn-sans text-2xl font-semibold tracking-wide text-ink">{title}</h2>
+        </div>
+        {Icon ? (
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-line bg-paper/60 text-primary">
+            <Icon size={18} />
+          </span>
+        ) : null}
+      </div>
+      {children}
+    </section>
+  );
+}
+
+function TimelineItem({ title, meta, children }) {
+  return (
+    <div className="relative border-l border-line/80 pl-5">
+      <span className="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full border border-primary bg-paper" />
+      <p className="font-cn-serif text-xl text-ink">{title}</p>
+      <p className="mt-2 text-xs uppercase leading-5 tracking-[0.12em] text-primary">{meta}</p>
+      <p className="mt-3 text-sm leading-7 text-ink/64">{children}</p>
+    </div>
+  );
+}
+
+function ExperienceBlock({ item }) {
+  return (
+    <article className="border-b border-line/65 pb-7 last:border-b-0 last:pb-0">
+      <div className="mb-4 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+        <div>
+          <h3 className="font-cn-serif text-2xl text-ink">{item.company}</h3>
+          <p className="mt-2 text-sm text-clay">{item.role}</p>
+        </div>
+        <p className="text-xs uppercase tracking-[0.16em] text-ink/42">{item.time}</p>
+      </div>
+      <ul className="space-y-3 text-sm leading-7 text-ink/68">
+        {item.points.map((point) => (
+          <li key={point} className="flex gap-3">
+            <span className="mt-3 h-1 w-1 shrink-0 rounded-full bg-primary/55" />
+            <span>{point}</span>
+          </li>
+        ))}
+      </ul>
+    </article>
+  );
+}
+
 function SimplePage({ type }) {
+  if (type === "about") {
+    return <AboutPage />;
+  }
+
   const page = content[type] || content.about;
 
   return (

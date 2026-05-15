@@ -37,6 +37,10 @@ body {
   font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
 }
 
+.font-cn-sans {
+  font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", sans-serif;
+}
+
 button,
 a {
   -webkit-tap-highlight-color: transparent;

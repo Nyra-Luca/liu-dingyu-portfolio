@@ -39,10 +39,10 @@ function CategoryPage({ category }) {
   const title = categoryTitles[category];
 
   return (
-    <div className="page-fade relative isolate overflow-hidden pt-28">
+    <div className="page-fade relative isolate overflow-hidden pt-20 md:pt-24">
       <CategoryDrawing category={category} />
 
-      <section className="relative z-10 mx-auto max-w-7xl px-5 pb-12 pt-10 md:px-8">
+      <section className="relative z-10 mx-auto max-w-7xl px-5 pb-10 pt-6 md:px-8">
         <Link
           className="inline-flex items-center gap-2 rounded-full border border-primary/45 bg-primary/10 px-5 py-2.5 text-sm font-medium text-primary transition duration-300 hover:border-clay/55 hover:bg-clay/10 hover:text-clay"
           to="/"
@@ -57,7 +57,7 @@ function CategoryPage({ category }) {
           animate="visible"
         >
           <CategoryHeaderLinework category={category} />
-          <div className="relative grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <div className="relative grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <div>
               <div className="mb-6 flex items-center gap-4">
                 <span className="relative h-3 w-3 rounded-full border border-primary/70">
@@ -82,7 +82,7 @@ function CategoryPage({ category }) {
               </p>
             </div>
 
-            <div className="rounded-lg border border-line/75 bg-white/56 p-7 leading-8 text-ink/68 backdrop-blur-[2px]">
+            <div className="rounded-lg border border-line/75 bg-white/56 p-7 leading-8 text-ink/68 backdrop-blur-[2px] lg:mt-0">
               <div className="mb-5 flex items-center justify-between gap-4 border-b border-line/70 pb-3">
                 <span className="text-[10px] uppercase tracking-[0.22em] text-primary">
                   Collection Note
