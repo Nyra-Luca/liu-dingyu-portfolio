@@ -3,29 +3,46 @@ import { useLocation } from "react-router-dom";
 function DecorativeBackground() {
   const location = useLocation();
   const isHome = location.pathname === "/";
+  const isInterior = location.pathname === "/interior";
+  const isLandscape = location.pathname === "/landscape";
+  const usesPortfolioBackground =
+    isHome ||
+    location.pathname === "/about" ||
+    location.pathname === "/contact";
+  const usesImageBackground =
+    usesPortfolioBackground || isInterior || isLandscape;
   const isProjectDetail = location.pathname.startsWith("/projects/");
-  const drawingOpacity = isHome
+  const drawingOpacity = usesImageBackground
     ? "opacity-0"
     : isProjectDetail
       ? "opacity-[0.35]"
       : "";
-  const textureOpacity = isHome
-    ? "opacity-[0.2]"
+  const textureOpacity = usesImageBackground
+    ? "opacity-0"
     : isProjectDetail
       ? "opacity-[0.55]"
       : "opacity-95";
 
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-paper">
-      {isHome ? (
+      {usesImageBackground ? (
         <>
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.86]"
-            style={{ backgroundImage: "url('/images/home-background.png')" }}
+            className="absolute inset-0 bg-left-top bg-no-repeat opacity-[0.92]"
+            style={{
+              backgroundImage: `url('${
+                isInterior
+                  ? "/images/interior-background.png"
+                  : isLandscape
+                    ? "/images/landscape-background.png"
+                    : "/images/home-background.png"
+              }')`,
+              backgroundSize: "100% auto",
+            }}
           />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(241,238,230,0.76)_0%,rgba(241,238,230,0.52)_38%,rgba(241,238,230,0.16)_67%,rgba(241,238,230,0.08)_100%)]" />
-          <div className="absolute inset-0 paper-texture opacity-[0.28]" />
-          <div className="absolute inset-0 paper-vignette opacity-[0.35]" />
+          {!isInterior && !isLandscape ? (
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(247,243,236,0.22)_0%,rgba(247,243,236,0.14)_30%,rgba(247,243,236,0.05)_48%,transparent_62%)]" />
+          ) : null}
         </>
       ) : (
         <>
@@ -37,20 +54,20 @@ function DecorativeBackground() {
 
       <div
         className={`absolute -bottom-44 -left-52 h-[34rem] w-[44rem] rounded-full bg-primary/[0.035] blur-[130px] ${
-          isHome ? "opacity-0" : ""
+          usesImageBackground ? "opacity-0" : ""
         }`}
       />
       <div
         className={`absolute -right-56 top-[42%] h-[30rem] w-[38rem] rounded-full bg-clay/[0.028] blur-[135px] ${
-          isHome ? "opacity-0" : ""
+          usesImageBackground ? "opacity-0" : ""
         }`}
       />
 
       <div className={`absolute inset-0 axis-grid ${textureOpacity}`} />
       <div
         className={`absolute inset-0 dotted-field ${
-          isHome
-            ? "opacity-[0.14]"
+          usesImageBackground
+            ? "opacity-0"
             : isProjectDetail
               ? "opacity-[0.45]"
               : "opacity-90"
