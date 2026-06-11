@@ -216,23 +216,27 @@ function OrbitGuide() {
   return (
     <svg
       className="pointer-events-none absolute inset-0 hidden h-full w-full text-primary/[0.13] md:block"
-      viewBox="0 0 620 540"
+      viewBox="0 0 700 690"
       fill="none"
       aria-hidden="true"
     >
-      <path
-        d="M536 -116C278 -58 116 112 106 270C96 428 232 596 500 664"
+      <circle
+        cx="430"
+        cy="300"
+        r="315"
         stroke="currentColor"
         strokeWidth="1"
         strokeDasharray="4 12"
       />
-      <path
-        d="M604 -16C410 26 288 136 278 270C268 404 372 520 574 574"
+      <circle
+        cx="430"
+        cy="300"
+        r="264"
         stroke="currentColor"
         strokeWidth="0.8"
         strokeDasharray="2 10"
       />
-      <circle cx="760" cy="270" r="3" fill="currentColor" />
+      <circle cx="430" cy="300" r="3" fill="currentColor" />
     </svg>
   );
 }
@@ -240,32 +244,32 @@ function OrbitGuide() {
 const orbitCards = [
   {
     item: collageItems[5],
-    angle: 0,
+    angle: 300,
     zIndex: 24,
   },
   {
     item: collageItems[2],
-    angle: 1,
+    angle: 240,
     zIndex: 30,
   },
   {
     item: collageItems[0],
-    angle: 2,
+    angle: 180,
     zIndex: 28,
   },
   {
     item: collageItems[4],
-    angle: 3,
+    angle: 120,
     zIndex: 26,
   },
   {
     item: collageItems[1],
-    angle: 4,
+    angle: 60,
     zIndex: 24,
   },
   {
     item: collageItems[3],
-    angle: 5,
+    angle: 0,
     zIndex: 22,
   },
 ];
@@ -284,7 +288,7 @@ function OrbitCard({
   delay = 0,
 }) {
   const isRingCard = angle !== undefined;
-  const position = isRingCard ? getRingPosition(angle, orbitAngle) : null;
+  const position = isRingCard ? getRingPosition(angle + orbitAngle) : null;
 
   return (
     <motion.div
@@ -345,34 +349,19 @@ function OrbitCard({
   );
 }
 
-const orbitSlots = [
-  { x: 590, y: 256, scale: 0.66, zIndex: 10 },
-  { x: 392, y: 54, scale: 0.8, zIndex: 22 },
-  { x: 96, y: 256, scale: 0.96, zIndex: 45 },
-  { x: 392, y: 462, scale: 0.8, zIndex: 26 },
-  { x: 560, y: 462, scale: 0.68, zIndex: 14 },
-  { x: 620, y: 74, scale: 0.66, zIndex: 10 },
-];
-
-function getRingPosition(slotIndex, orbitAngle) {
-  const slotProgress = orbitAngle / 60;
-  const normalizedSlot =
-    ((slotIndex + slotProgress) % orbitSlots.length + orbitSlots.length) %
-    orbitSlots.length;
-  const currentIndex = Math.floor(normalizedSlot);
-  const nextIndex = (currentIndex + 1) % orbitSlots.length;
-  const mix = normalizedSlot - currentIndex;
-  const current = orbitSlots[currentIndex];
-  const next = orbitSlots[nextIndex];
-  const smoothMix = mix * mix * (3 - 2 * mix);
-  const interpolate = (from, to) => from + (to - from) * smoothMix;
+function getRingPosition(angle) {
+  const centerX = 430;
+  const centerY = 300;
+  const radius = 315;
+  const radians = (angle * Math.PI) / 180;
+  const depth = (1 - Math.cos(radians)) / 2;
 
   return {
-    x: interpolate(current.x, next.x),
-    y: interpolate(current.y, next.y),
+    x: centerX + Math.cos(radians) * radius,
+    y: centerY + Math.sin(radians) * radius,
     opacity: 1,
-    scale: interpolate(current.scale, next.scale),
-    zIndex: Math.round(interpolate(current.zIndex, next.zIndex)),
+    scale: 0.68 + depth * 0.28,
+    zIndex: Math.round(10 + depth * 35),
   };
 }
 
