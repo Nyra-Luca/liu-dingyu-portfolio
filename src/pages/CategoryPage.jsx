@@ -82,7 +82,7 @@ function CategoryPage({ category }) {
               </p>
             </div>
 
-            <div className="rounded-lg border border-line/75 bg-white/56 p-7 leading-8 text-ink/68 backdrop-blur-[2px] lg:mt-0">
+            <div className="rounded-lg border border-line/75 bg-white/56 p-7 leading-8 text-ink/68 backdrop-blur-[2px] lg:-mt-7">
               <div className="mb-5 flex items-center justify-between gap-4 border-b border-line/70 pb-3">
                 <span className="text-[10px] uppercase tracking-[0.22em] text-primary">
                   Collection Note
@@ -166,74 +166,7 @@ function CategoryHeaderLinework({ category }) {
 }
 
 function CategoryDrawing({ category }) {
-  if (category === "landscape") {
-    return (
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <svg
-          className="absolute -right-24 top-20 h-[38rem] w-[50rem] text-primary/[0.14]"
-          viewBox="0 0 760 520"
-          fill="none"
-          aria-hidden="true"
-        >
-          <path d="M84 344C188 270 268 354 380 284C488 216 584 240 704 150" stroke="currentColor" />
-          <path d="M58 398C184 318 280 402 398 328C510 258 604 284 730 190" stroke="currentColor" />
-          <path d="M132 284C228 222 302 284 392 230C482 174 560 188 658 120" stroke="currentColor" />
-          <path d="M206 220C278 176 336 214 404 174C474 132 536 138 612 84" stroke="currentColor" />
-          <path d="M112 440C222 410 298 428 392 382C474 342 548 332 648 292" stroke="currentColor" strokeDasharray="10 14" />
-          <path d="M520 244C568 222 604 226 646 202" stroke="currentColor" strokeWidth="1.2" />
-          <circle cx="236" cy="316" r="4" fill="currentColor" />
-          <circle cx="424" cy="268" r="4" fill="currentColor" />
-          <circle cx="604" cy="216" r="4" fill="currentColor" />
-          <path d="M612 350H700M656 306V394" stroke="currentColor" strokeWidth="0.8" />
-        </svg>
-
-        <svg
-          className="absolute -left-28 bottom-8 h-[25rem] w-[36rem] text-clay/[0.095]"
-          viewBox="0 0 540 360"
-          fill="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M42 228C110 250 196 258 292 240C370 226 432 200 488 160C460 238 386 286 270 294C160 302 78 276 42 228Z"
-            stroke="currentColor"
-          />
-          <path d="M108 216L178 126L320 216" stroke="currentColor" />
-          <path d="M82 270C174 296 306 292 430 246" stroke="currentColor" />
-        </svg>
-      </div>
-    );
-  }
-
-  return (
-    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-      <svg
-        className="absolute -left-16 top-24 h-[36rem] w-[42rem] text-primary/[0.13]"
-        viewBox="0 0 620 520"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path d="M74 92H278M74 92V316M278 92V176M74 316H190" stroke="currentColor" />
-        <path d="M190 316V418H420V186H278" stroke="currentColor" />
-        <path d="M122 92V316M74 162H278M190 238H420M286 186V418" stroke="currentColor" />
-        <path d="M278 176C326 176 366 208 374 254" stroke="currentColor" />
-        <path d="M190 316C190 362 224 398 268 406" stroke="currentColor" />
-        <path d="M320 276H390V342H320V276Z" stroke="currentColor" />
-        <path d="M104 194H154V246H104V194Z" stroke="currentColor" />
-        <path d="M452 118H540M496 74V162M492 118H500M496 114V122" stroke="currentColor" strokeWidth="0.8" />
-      </svg>
-
-      <svg
-        className="absolute -right-20 bottom-16 h-[24rem] w-[34rem] text-clay/[0.085]"
-        viewBox="0 0 520 340"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path d="M68 82H420M68 142H420M68 202H420" stroke="currentColor" />
-        <path d="M104 62V224M208 62V224M332 62V224" stroke="currentColor" />
-        <path d="M90 260H220M90 286H336M90 312H278" stroke="currentColor" strokeWidth="0.8" />
-      </svg>
-    </div>
-  );
+  return null;
 }
 
 export default CategoryPage;

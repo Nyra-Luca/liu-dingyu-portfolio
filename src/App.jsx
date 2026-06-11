@@ -11,16 +11,24 @@ import SimplePage from "./pages/SimplePage.jsx";
 function App() {
   const location = useLocation();
   const isHome = location.pathname === "/";
+  const isContact = location.pathname === "/contact";
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen bg-paper text-ink">
+    <div
+      className={`min-h-screen bg-paper text-ink ${
+        isContact ? "flex flex-col" : ""
+      }`}
+    >
       <DecorativeBackground />
       <Navbar />
-      <main className="relative z-10" key={location.pathname}>
+      <main
+        className={`relative z-10 ${isContact ? "flex-1" : ""}`}
+        key={location.pathname}
+      >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/interior" element={<CategoryPage key="interior" category="interior" />} />

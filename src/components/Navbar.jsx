@@ -14,7 +14,7 @@ function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 border-b border-[rgba(216,216,210,0.5)] bg-[rgba(241,238,230,0.72)] shadow-[0_1px_0_rgba(255,255,255,0.28)_inset] backdrop-blur-[6px]">
+    <header className="fixed left-0 right-0 top-0 z-50 border-b border-[rgba(216,211,203,0.48)] bg-[rgba(247,243,236,0.76)] shadow-[0_1px_0_rgba(255,255,255,0.32)_inset] backdrop-blur-[6px]">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
         <Link to="/" className="group flex items-center gap-3 text-ink">
           <span className="relative h-2 w-2 rounded-full border border-primary/55">
