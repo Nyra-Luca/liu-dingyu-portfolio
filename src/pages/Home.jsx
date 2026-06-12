@@ -198,7 +198,7 @@ function Home() {
             setHoveredCard(null);
           }}
         >
-          <div className="absolute inset-x-0 top-0 hidden h-[690px] overflow-hidden md:block">
+          <div className="absolute -right-28 left-0 top-0 hidden h-[650px] overflow-hidden md:block">
             <OrbitGuide />
             <div className="absolute inset-0">
               {orbitCards.map((card, index) => (
@@ -261,22 +261,24 @@ function OrbitGuide() {
   return (
     <svg
       className="pointer-events-none absolute inset-0 hidden h-full w-full text-primary/[0.13] md:block"
-      viewBox="0 0 700 690"
+      viewBox="0 0 700 650"
       fill="none"
       aria-hidden="true"
     >
-      <circle
+      <ellipse
         cx="430"
         cy="300"
-        r="315"
+        rx="315"
+        ry="250"
         stroke="currentColor"
         strokeWidth="1"
         strokeDasharray="4 12"
       />
-      <circle
+      <ellipse
         cx="430"
         cy="300"
-        r="264"
+        rx="264"
+        ry="210"
         stroke="currentColor"
         strokeWidth="0.8"
         strokeDasharray="2 10"
@@ -429,13 +431,14 @@ function OrbitCard({
 function getRingPosition(angle) {
   const centerX = 430;
   const centerY = 300;
-  const radius = 315;
+  const radiusX = 315;
+  const radiusY = 250;
   const radians = (angle * Math.PI) / 180;
   const depth = (1 - Math.cos(radians)) / 2;
 
   return {
-    x: centerX + Math.cos(radians) * radius,
-    y: centerY + Math.sin(radians) * radius,
+    x: centerX + Math.cos(radians) * radiusX,
+    y: centerY + Math.sin(radians) * radiusY,
     opacity: 1,
     scale: 0.68 + depth * 0.28,
     zIndex: Math.round(10 + depth * 35),
