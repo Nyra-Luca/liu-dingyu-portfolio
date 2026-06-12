@@ -295,14 +295,14 @@ function MobileOrbitGuide() {
       aria-hidden="true"
     >
       <circle
-        cx="310"
+        cx="260"
         cy="155"
         r="170"
         stroke="currentColor"
         strokeWidth="1"
         strokeDasharray="4 11"
       />
-      <circle cx="310" cy="155" r="3" fill="currentColor" />
+      <circle cx="260" cy="155" r="3" fill="currentColor" />
     </svg>
   );
 }
@@ -443,7 +443,7 @@ function getRingPosition(angle) {
 }
 
 function getMobileRingPosition(angle) {
-  const centerX = 310;
+  const centerX = 260;
   const centerY = 155;
   const radius = 170;
   const radians = (angle * Math.PI) / 180;

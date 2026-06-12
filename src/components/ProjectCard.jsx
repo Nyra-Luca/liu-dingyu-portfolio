@@ -15,7 +15,7 @@ function ProjectCard({ project, compact = false }) {
           label={project.englishTitle}
           className="w-full max-w-full rounded-md"
           ratio={compact ? "aspect-video" : "aspect-[5/4]"}
-          fit={compact ? "contain" : "cover"}
+          fit="cover"
         />
         <div className="flex min-w-0 flex-1 flex-col px-3 pb-3 pt-5">
           <div className="mb-4 flex items-center justify-between gap-4 border-b border-line/70 pb-3">
