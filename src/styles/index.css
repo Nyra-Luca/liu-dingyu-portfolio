@@ -170,6 +170,11 @@ img {
   animation: pageFade 520ms ease both;
 }
 
+.portfolio-image-background {
+  background-position: left top;
+  background-size: 100% auto;
+}
+
 .simple-info-frame {
   height: 36rem;
 }
@@ -193,6 +198,11 @@ img {
 }
 
 @media (max-width: 640px) {
+  .portfolio-image-background {
+    background-position: center top;
+    background-size: auto 100%;
+  }
+
   .axis-grid {
     background-size: 48px 48px;
   }

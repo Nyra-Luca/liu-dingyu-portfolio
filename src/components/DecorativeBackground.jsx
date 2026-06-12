@@ -28,16 +28,15 @@ function DecorativeBackground() {
       {usesImageBackground ? (
         <>
           <div
-            className="absolute inset-0 bg-left-top bg-no-repeat opacity-[0.92]"
+            className="portfolio-image-background absolute inset-0 bg-no-repeat opacity-[0.92]"
             style={{
               backgroundImage: `url('${
                 isInterior
-                  ? "/images/interior-background.png"
+                  ? "/images/interior-background.jpg"
                   : isLandscape
-                    ? "/images/landscape-background.png"
-                    : "/images/home-background.png"
+                    ? "/images/landscape-background.jpg"
+                    : "/images/home-background.jpg"
               }')`,
-              backgroundSize: "100% auto",
             }}
           />
           {!isInterior && !isLandscape ? (

@@ -70,6 +70,7 @@ function Home() {
   const [orbitAngle, setOrbitAngle] = useState(0);
   const targetVelocityRef = useRef(0);
   const currentVelocityRef = useRef(0);
+  const touchXRef = useRef(null);
 
   useEffect(() => {
     let frameId;
@@ -115,6 +116,26 @@ function Home() {
     targetVelocityRef.current = direction * speed;
   };
 
+  const handleOrbitTouchStart = (event) => {
+    touchXRef.current = event.touches[0]?.clientX ?? null;
+    targetVelocityRef.current = 0;
+  };
+
+  const handleOrbitTouchMove = (event) => {
+    const nextX = event.touches[0]?.clientX;
+    if (nextX == null || touchXRef.current == null) return;
+
+    const deltaX = nextX - touchXRef.current;
+    if (Math.abs(deltaX) < 2) return;
+
+    setOrbitAngle((angle) => (angle + deltaX * 0.32) % 360);
+    touchXRef.current = nextX;
+  };
+
+  const handleOrbitTouchEnd = () => {
+    touchXRef.current = null;
+  };
+
   return (
     <div className="page-fade min-h-screen pt-24">
       <section className="relative mx-auto grid min-h-[calc(100vh-6rem)] max-w-7xl items-center gap-12 px-5 pb-16 pt-8 md:grid-cols-[0.95fr_1.05fr] md:px-8">
@@ -151,7 +172,7 @@ function Home() {
         </motion.div>
 
         <div
-          className="relative min-h-[540px] overflow-visible pb-0 md:h-[620px]"
+          className="relative min-h-[430px] overflow-visible pb-0 md:h-[620px] md:min-h-[540px]"
           onMouseMove={handleOrbitMove}
           onMouseLeave={() => {
             targetVelocityRef.current = 0;
@@ -175,17 +196,22 @@ function Home() {
             </div>
           </div>
 
-          <div className="flex gap-4 overflow-x-auto pb-4 pt-8 md:hidden">
-            {collageItems.map((item, index) => (
+          <div
+            className="absolute inset-x-0 top-0 h-[430px] touch-pan-y overflow-hidden md:hidden"
+            onTouchStart={handleOrbitTouchStart}
+            onTouchMove={handleOrbitTouchMove}
+            onTouchEnd={handleOrbitTouchEnd}
+            onTouchCancel={handleOrbitTouchEnd}
+          >
+            <MobileOrbitGuide />
+            {orbitCards.map((card, index) => (
               <OrbitCard
-                key={item.id}
-                item={item}
-                className="relative min-w-[72%]"
-                rotation={index % 2 === 0 ? 2 : -2}
-                ratio="aspect-video"
-                delay={0.12 + index * 0.08}
-                shift={{ x: 0, y: 0 }}
-                drift={0}
+                key={card.item.id}
+                {...card}
+                mobile
+                delay={0.12 + index * 0.06}
+                orbitAngle={orbitAngle}
+                isHovered={false}
               />
             ))}
           </div>
@@ -241,6 +267,27 @@ function OrbitGuide() {
   );
 }
 
+function MobileOrbitGuide() {
+  return (
+    <svg
+      className="pointer-events-none absolute inset-0 h-full w-full text-primary/[0.12]"
+      viewBox="0 0 360 430"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle
+        cx="285"
+        cy="215"
+        r="170"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeDasharray="4 11"
+      />
+      <circle cx="285" cy="215" r="3" fill="currentColor" />
+    </svg>
+  );
+}
+
 const orbitCards = [
   {
     item: collageItems[5],
@@ -279,6 +326,7 @@ function OrbitCard({
   className = "",
   angle,
   orbitAngle = 0,
+  mobile = false,
   isHovered = false,
   onHoverStart,
   onHoverEnd,
@@ -288,11 +336,21 @@ function OrbitCard({
   delay = 0,
 }) {
   const isRingCard = angle !== undefined;
-  const position = isRingCard ? getRingPosition(angle + orbitAngle) : null;
+  const position = isRingCard
+    ? mobile
+      ? getMobileRingPosition(angle + orbitAngle)
+      : getRingPosition(angle + orbitAngle)
+    : null;
 
   return (
     <motion.div
-      className={`${className} ${isRingCard ? "absolute w-[320px] lg:w-[365px]" : "hover:z-50"}`}
+      className={`${className} ${
+        isRingCard
+          ? mobile
+            ? "absolute w-[235px]"
+            : "absolute w-[320px] lg:w-[365px]"
+          : "hover:z-50"
+      }`}
       style={
         isRingCard
           ? {
@@ -361,6 +419,22 @@ function getRingPosition(angle) {
     y: centerY + Math.sin(radians) * radius,
     opacity: 1,
     scale: 0.68 + depth * 0.28,
+    zIndex: Math.round(10 + depth * 35),
+  };
+}
+
+function getMobileRingPosition(angle) {
+  const centerX = 285;
+  const centerY = 215;
+  const radius = 170;
+  const radians = (angle * Math.PI) / 180;
+  const depth = (1 - Math.cos(radians)) / 2;
+
+  return {
+    x: centerX + Math.cos(radians) * radius,
+    y: centerY + Math.sin(radians) * radius,
+    opacity: 1,
+    scale: 0.62 + depth * 0.28,
     zIndex: Math.round(10 + depth * 35),
   };
 }
