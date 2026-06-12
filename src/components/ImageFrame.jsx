@@ -15,7 +15,7 @@ function ImageFrame({
 
   return (
     <div
-      className={`image-frame ${ratio} relative overflow-hidden bg-card ${className}`}
+      className={`image-frame ${ratio} relative w-full min-w-0 max-w-full overflow-hidden bg-card ${className}`}
       aria-label={alt}
     >
       {!failed && src ? (

@@ -71,6 +71,8 @@ function Home() {
   const targetVelocityRef = useRef(0);
   const currentVelocityRef = useRef(0);
   const touchXRef = useRef(null);
+  const touchTimeRef = useRef(null);
+  const touchVelocityRef = useRef(0);
 
   useEffect(() => {
     let frameId;
@@ -118,22 +120,39 @@ function Home() {
 
   const handleOrbitTouchStart = (event) => {
     touchXRef.current = event.touches[0]?.clientX ?? null;
+    touchTimeRef.current = performance.now();
+    touchVelocityRef.current = 0;
     targetVelocityRef.current = 0;
+    currentVelocityRef.current = 0;
   };
 
   const handleOrbitTouchMove = (event) => {
     const nextX = event.touches[0]?.clientX;
     if (nextX == null || touchXRef.current == null) return;
 
+    const now = performance.now();
     const deltaX = nextX - touchXRef.current;
+    const deltaTime = Math.max(8, now - (touchTimeRef.current ?? now));
     if (Math.abs(deltaX) < 2) return;
 
-    setOrbitAngle((angle) => (angle + deltaX * 0.32) % 360);
+    const fingerVelocity = deltaX / deltaTime;
+    const speedBoost = 0.52 + Math.min(Math.abs(fingerVelocity) * 0.55, 0.72);
+
+    setOrbitAngle((angle) => (angle + deltaX * speedBoost) % 360);
+    touchVelocityRef.current = Math.max(
+      -0.16,
+      Math.min(0.16, fingerVelocity * 0.095),
+    );
     touchXRef.current = nextX;
+    touchTimeRef.current = now;
   };
 
   const handleOrbitTouchEnd = () => {
     touchXRef.current = null;
+    touchTimeRef.current = null;
+    currentVelocityRef.current = touchVelocityRef.current;
+    targetVelocityRef.current = 0;
+    touchVelocityRef.current = 0;
   };
 
   return (
@@ -276,14 +295,14 @@ function MobileOrbitGuide() {
       aria-hidden="true"
     >
       <circle
-        cx="285"
-        cy="215"
+        cx="310"
+        cy="155"
         r="170"
         stroke="currentColor"
         strokeWidth="1"
         strokeDasharray="4 11"
       />
-      <circle cx="285" cy="215" r="3" fill="currentColor" />
+      <circle cx="310" cy="155" r="3" fill="currentColor" />
     </svg>
   );
 }
@@ -424,8 +443,8 @@ function getRingPosition(angle) {
 }
 
 function getMobileRingPosition(angle) {
-  const centerX = 285;
-  const centerY = 215;
+  const centerX = 310;
+  const centerY = 155;
   const radius = 170;
   const radians = (angle * Math.PI) / 180;
   const depth = (1 - Math.cos(radians)) / 2;

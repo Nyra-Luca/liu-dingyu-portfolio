@@ -4,14 +4,18 @@ import ImageFrame from "./ImageFrame.jsx";
 
 function ProjectCard({ project, compact = false }) {
   return (
-    <article className="group h-full min-w-0 w-full overflow-hidden rounded-lg border border-line/70 bg-white/78 p-3 shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-lift">
-      <Link to={`/projects/${project.id}`} className="flex h-full min-w-0 flex-col">
+    <article className="group h-full w-full min-w-0 max-w-full overflow-hidden rounded-lg border border-line/70 bg-white/78 p-3 shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-lift">
+      <Link
+        to={`/projects/${project.id}`}
+        className="flex h-full w-full min-w-0 max-w-full flex-col overflow-hidden"
+      >
         <ImageFrame
           src={project.coverImage}
           alt={`${project.title} cover`}
           label={project.englishTitle}
-          className="rounded-md"
+          className="w-full max-w-full rounded-md"
           ratio={compact ? "aspect-video" : "aspect-[5/4]"}
+          fit={compact ? "contain" : "cover"}
         />
         <div className="flex min-w-0 flex-1 flex-col px-3 pb-3 pt-5">
           <div className="mb-4 flex items-center justify-between gap-4 border-b border-line/70 pb-3">

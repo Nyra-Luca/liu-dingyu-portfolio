@@ -96,7 +96,7 @@ function CategoryPage({ category }) {
         </motion.div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-7xl px-5 pb-24 md:px-8">
+      <section className="relative z-10 mx-auto w-full max-w-7xl overflow-hidden px-5 pb-24 md:px-8">
         <motion.div
           className="mb-8 flex items-end justify-between gap-6 border-b border-line/70 pb-5"
           variants={fadeUp}
@@ -119,14 +119,18 @@ function CategoryPage({ category }) {
           </p>
         </motion.div>
         <motion.div
-          className="grid gap-8 md:grid-cols-2 xl:grid-cols-3"
+          className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)] gap-8 md:grid-cols-2 xl:grid-cols-3"
           variants={staggerGroup}
           initial="hidden"
           animate="visible"
           key={category}
         >
           {categoryProjects.map((project) => (
-            <motion.div key={project.id} variants={fadeUp}>
+            <motion.div
+              key={project.id}
+              className="w-full min-w-0 max-w-full"
+              variants={fadeUp}
+            >
               <ProjectCard project={project} compact />
             </motion.div>
           ))}
