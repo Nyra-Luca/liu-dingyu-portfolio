@@ -13,10 +13,10 @@ const content = {
   contact: {
     eyebrow: "Contact",
     title: "Contact",
-    description: "Email: liudingyu21@gmail.com",
+    description: "Email: 17336464991@163.com",
     body: [
       "For portfolio review, collaboration, or design discussion, please contact Liu Dingyu by email.",
-      "Email: liudingyu21@gmail.com",
+      "Email: 17336464991@163.com",
     ],
   },
 };
@@ -30,7 +30,7 @@ const profile = {
   englishSummary:
     "Interior and environmental designer focused on commercial, residential, and public spaces, with skills in drawing coordination, modeling, visualization, and presentation support.",
   contact: [
-    { icon: Mail, label: "Email", value: "liudingyu21@gmail.com", href: "mailto:liudingyu21@gmail.com" },
+    { icon: Mail, label: "Email", value: "17336464991@163.com", href: "mailto:17336464991@163.com" },
     { icon: Phone, label: "Phone", value: "17336464991" },
     { icon: MapPin, label: "Based in", value: "China" },
   ],
@@ -57,9 +57,9 @@ const experience = [
     role: "室内设计实习生",
     time: "2026.01 - 2026.03",
     points: [
-      "参与商业综合体项目多版本建筑底图校对与 CAD 重绘，梳理最新平面信息，并配合完成公区边界、红线及卫生间平面调整。",
-      "根据整理后的平面图完成多层建筑白模，配合团队制作漫游动画、扶梯调整前后对比图及彩平图。",
-      "参与室内公区分析图绘制及卫生间平面多轮修改，跟进方案更新与汇报展示支持。",
+      "图纸整合与建模：参与华东地区一处总建筑面积约 21 万㎡的大型六层商业综合体项目，整合多版本底图完成 CAD 重绘校核，独立完成六层 SU 白模搭建；配合 Enscape 制作扶梯方案漫游动画，历经多轮比选后确定最终扶梯位置。",
+      "分析绘制与平面深化：绘制服务半径、人流及室内公区分析图；参与 B1 及地上 F2-F5 公共卫生间平面调整，根据设计规范和业主要求完成多轮修改与图纸校对。",
+      "多项目快速响应：在不同商业项目间快速切换，完成另一商业综合体 4 层彩平图与 4 处效果图渲染；并参与五层文旅综合体公区边界、功能分区、铺位及动线分析图绘制。",
     ],
   },
   {
@@ -67,10 +67,19 @@ const experience = [
     role: "设计师助理",
     time: "2024.07 - 2024.09",
     points: [
-      "参与 5 个以上家装项目的前期沟通与需求提炼，协助将客户需求转化为空间方案。",
-      "独立负责 3 套全案建模渲染，曾在 1 日内加急产出对比方案并促成客户一次性签约。",
-      "建立施工问题台账，记录处理 150 多条现场冲突，通过图纸校对降低返工风险。",
+      "需求转化与客户对接：熟悉小区户型图及套餐，负责样板间讲解与需求梳理，反馈设计师，参与 5 个以上家装项目。",
+      "方案表现与深化：配合设计师完成量房放样，用 3D / 酷家乐建模渲染并生成漫游展示，跟进软装选品与采购下单。",
+      "现场跟进与协调：驻场巡查 12 户以上在施单元，记录施工问题并分类反馈至施工队，累计跟进 150 余条现场问题。",
     ],
+  },
+];
+
+const campusExperience = [
+  {
+    title: "艺术系团委办公室主任",
+    time: "2018.09 - 2019.06",
+    detail:
+      "数据管理与分析：运用 Excel 对系内 200 多名学生的活动及证书情况进行量化管理，为奖学金评定等工作提供数据支撑。",
   },
 ];
 
@@ -80,14 +89,14 @@ const projectExperience = [
     role: "概念方案设计",
     time: "2025.02 - 2025.04",
     result:
-      "参与校企合作的国家级“消博会”品牌展厅设计课题，独立提出“品牌视觉建构化呈现”核心策略，被指导组及甲方采纳，部分概念进入最终方案。",
+      "参与校企合作品牌展厅设计课题，独立完成概念方案设计与 SU 建模，从珍珠圆润流线的自然形态出发设计动线与造型语言，主题色调等元素与最终落地方案形成呼应。",
   },
   {
     title: "福利彩票品牌零售店",
-    role: "设计助理",
-    time: "2023.09",
+    role: "设计助理（已落地）",
+    time: "2023.09 - 2023.09",
     result:
-      "负责 75 平方米品牌店三维渲染与可视化，配合品牌形象升级完成快速效果图交付与当日迭代，支持项目 19 天内从设计到施工落地，最终方案获甲方一次性通过。",
+      "负责 75 ㎡门店的三维建模、材质搭配与效果图渲染，并配合方案深化完成多轮修改，最终方案获甲方一次性通过，项目于 19 天内完成设计至落地，建成效果与效果图基本一致。",
   },
 ];
 
@@ -101,12 +110,12 @@ const skillGroups = [
     items: ["AutoCAD", "SketchUp", "3ds Max", "D5", "Enscape", "Photoshop"],
   },
   {
-    title: "Office & AIGC",
-    items: ["Word", "Excel", "PPT", "ChatGPT", "Codex", "Midjourney"],
+    title: "Office Software",
+    items: ["Word", "Excel · 项目资料整理与基础数据分析", "PPT · 设计方案汇报"],
   },
   {
-    title: "AI-assisted Workflow",
-    items: ["AI 辅助代码与网页维护", "设计文案撰写", "信息整理与表达优化"],
+    title: "AIGC Tools",
+    items: ["ChatGPT · 设计文案撰写与信息处理", "Midjourney · 前期概念视觉化"],
   },
 ];
 
@@ -114,9 +123,9 @@ const honors = [
   "ODA 东方设计奖一等奖",
   "FA 国际前沿创新艺术设计大赛二等奖",
   "华夏奖文化艺术设计大赛三等奖等多项设计竞赛奖项",
-  "CET-4 / CET-6",
+  "英语四、六级证书（CET-4、CET-6）",
   "五次获得校级年度奖学金",
-  "中共党员 / 优秀共青团员",
+  "优秀共青团员",
 ];
 
 const simplePageClasses = {
@@ -228,6 +237,16 @@ function AboutPage() {
                 </li>
               ))}
             </ul>
+          </InfoPanel>
+
+          <InfoPanel eyebrow="Campus Experience" title="在校经历">
+            <div className="space-y-6">
+              {campusExperience.map((item) => (
+                <TimelineItem key={item.title} title={item.title} meta={item.time}>
+                  {item.detail}
+                </TimelineItem>
+              ))}
+            </div>
           </InfoPanel>
         </aside>
 

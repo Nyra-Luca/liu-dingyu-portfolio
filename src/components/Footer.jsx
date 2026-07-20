@@ -6,8 +6,8 @@ function Footer() {
           <p className="font-display text-2xl text-ink">Designed by Liu Dingyu</p>
           <p className="mt-2">Interior & Landscape Design Portfolio / 2026</p>
         </div>
-        <a className="transition hover:text-primary" href="mailto:liudingyu21@gmail.com">
-          Email: liudingyu21@gmail.com
+        <a className="transition hover:text-primary" href="mailto:17336464991@163.com">
+          Email: 17336464991@163.com
         </a>
       </div>
     </footer>
