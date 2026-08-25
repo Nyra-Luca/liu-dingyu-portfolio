@@ -57,9 +57,9 @@ const experience = [
     role: "室内设计实习生",
     time: "2026.01 - 2026.03",
     points: [
-      "图纸整合与建模：参与华东地区一处总建筑面积约 21 万㎡的大型六层商业综合体项目，整合多版本底图完成 CAD 重绘校核，独立完成六层 SU 白模搭建；配合 Enscape 制作扶梯方案漫游动画，历经多轮比选后确定最终扶梯位置。",
-      "分析绘制与平面深化：绘制服务半径、人流及室内公区分析图；参与 B1 及地上 F2-F5 公共卫生间平面调整，根据设计规范和业主要求完成多轮修改与图纸校对。",
-      "多项目快速响应：在不同商业项目间快速切换，完成另一商业综合体 4 层彩平图与 4 处效果图渲染；并参与五层文旅综合体公区边界、功能分区、铺位及动线分析图绘制。",
+      "图纸整合与建模：参与华东某约 21 万㎡大型商业综合体，整合建筑、室内多版本 CAD 底图并持续校核更新，完成 B1-F5 六层 SU 白模；根据方案调整扶梯位置及空间关系，制作 Enscape 漫游及汇报材料。",
+      "分析绘制与平面深化：绘制服务半径、人流及室内公区分析图；完成 B1、F2-F5 公共卫生间平面排布、洁具数量统计及多轮方案修改与图纸核对，配合项目深化推进。",
+      "多项目快速响应：在不同商业项目间快速切换，完成华南某商业项目 4 层彩平及 4 个关键空间效果图；参与某五层文旅商业综合体公区边界、功能分区、铺位边界、扶梯方向及动线等 6 类分析图绘制。",
     ],
   },
   {
@@ -98,6 +98,14 @@ const projectExperience = [
     result:
       "负责 75 ㎡门店的三维建模、材质搭配与效果图渲染，并配合方案深化完成多轮修改，最终方案获甲方一次性通过，项目于 19 天内完成设计至落地，建成效果与效果图基本一致。",
   },
+  {
+    title: "个人作品集网站",
+    role: "独立设计与搭建",
+    time: "2026.06 - 2026.06",
+    result:
+      "独立完成作品集网站的信息架构与页面内容设计，并使用 Codex 辅助进行前端搭建与迭代，实现设计项目的在线整合展示。",
+    link: "https://liu-dingyu-portfolio.pages.dev",
+  },
 ];
 
 const skillGroups = [
@@ -115,7 +123,7 @@ const skillGroups = [
   },
   {
     title: "AIGC Tools",
-    items: ["ChatGPT · 设计文案撰写与信息处理", "Midjourney · 前期概念视觉化"],
+    items: ["Codex、ChatGPT · 网页搭建、交互原型开发、文案与信息处理；独立搭建个人作品集网站"],
   },
 ];
 
@@ -270,17 +278,32 @@ function AboutPage() {
                     </p>
                   </div>
                   <p className="text-sm leading-7 text-ink/66">{item.result}</p>
+                  {item.link ? (
+                    <a
+                      className="mt-4 inline-block break-all text-xs tracking-[0.06em] text-primary transition hover:text-clay"
+                      href={item.link}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {item.link}
+                    </a>
+                  ) : null}
                 </div>
               ))}
             </div>
           </InfoPanel>
 
-          <InfoPanel eyebrow="Self Review" title="个人特质">
-            <div className="grid gap-4 md:grid-cols-3">
+          <InfoPanel eyebrow="Personal Strengths" title="个人优势">
+            <div className="grid gap-4 md:grid-cols-2">
               {[
-                ["流程意识", "理解设计与施工之间的衔接关系，关注图纸准确性与落地可行性。"],
-                ["协作学习", "学习能力强，具备良好的沟通协调能力，能快速适应多任务工作环境。"],
-                ["执行细节", "熟悉 CAD 图纸整理、基础建模及方案表达流程，具备问题记录与修改跟进能力。"],
+                [
+                  "商业空间项目适应能力",
+                  "具备商业综合体、家装及品牌零售空间相关实践经验，能够较快适应不同项目节奏，并完成图纸整理、建模表现、分析绘制及方案深化等工作。",
+                ],
+                [
+                  "协作与落地意识",
+                  "具备跨专业配合及现场跟进经验，能根据设计调整持续校核图纸并跟进施工问题；可接受驻场及出差安排。",
+                ],
               ].map(([title, text]) => (
                 <div key={title} className="border-t border-line/70 pt-4">
                   <p className="mb-2 text-sm font-medium text-ink">{title}</p>
