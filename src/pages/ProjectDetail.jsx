@@ -13,13 +13,6 @@ const fadeUp = {
   },
 };
 
-const staggerGroup = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.09 },
-  },
-};
-
 function ProjectDetail() {
   const { projectId } = useParams();
   const project = getProjectById(projectId);
@@ -31,105 +24,70 @@ function ProjectDetail() {
   const categoryInfo = categories[project.category];
   const detailImages = project.images;
   const titleParts = getDisplayTitle(project);
-  const projectIndex = getProjectIndex(project);
+  const returnLabel = project.category === "interior" ? "返回室内设计" : "返回景观设计";
 
   return (
-    <article className="page-fade pt-28">
-      <section className="mx-auto max-w-7xl px-5 pb-10 pt-8 md:px-8">
+    <article className="page-fade pt-24 md:pt-28">
+      <section className="mx-auto max-w-7xl px-5 pb-2 pt-6 md:px-8 md:pb-6 md:pt-8">
         <Link
           to={categoryInfo.path}
           className="inline-flex items-center gap-2 rounded-full border border-primary/45 bg-primary/10 px-5 py-2.5 text-sm font-medium text-primary transition duration-300 hover:border-clay/55 hover:bg-clay/10 hover:text-clay"
         >
-          <ArrowLeft size={17} /> Back to {categoryInfo.shortTitle}
+          <ArrowLeft size={17} /> {returnLabel}
         </Link>
 
         <motion.div
-          className="relative mt-9 overflow-hidden border-y border-line/80 py-12"
+          className="relative mt-5 overflow-hidden border-y border-line/80 py-4 md:mt-6 md:py-7"
           variants={fadeUp}
           initial="hidden"
           animate="visible"
         >
           <HeaderLinework />
-          <div className="relative grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
-            <div>
-              <div className="mb-6 flex items-center gap-4">
-                <span className="relative h-3 w-3 rounded-full border border-primary/70">
-                  <span className="absolute left-1/2 top-1/2 h-px w-8 -translate-x-1/2 -translate-y-1/2 bg-primary/25" />
-                  <span className="absolute left-1/2 top-1/2 h-8 w-px -translate-x-1/2 -translate-y-1/2 bg-primary/25" />
-                </span>
-                <p className="text-xs uppercase tracking-[0.24em] text-primary">
-                  Project {projectIndex}
-                </p>
-                <span className="h-px flex-1 bg-line/80" />
-              </div>
-              <h1 className="font-cn-serif text-4xl font-normal leading-tight text-ink md:text-6xl">
+          <div className="relative grid gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(20rem,0.9fr)] lg:gap-14">
+            <div className="lg:pt-1">
+              <h1 className="font-cn-display text-4xl leading-tight text-ink md:text-5xl lg:text-6xl">
                 {titleParts.main}
               </h1>
               {titleParts.subtitle ? (
-                <p className="mt-5 max-w-3xl text-lg leading-8 text-ink/62">
+                <p className="mt-3 max-w-2xl font-cn-heading text-xl font-normal leading-snug text-ink/82 md:mt-4 md:text-2xl lg:text-[1.75rem]">
                   {titleParts.subtitle}
                 </p>
               ) : null}
-              <p className="mt-3 max-w-4xl text-base leading-7 text-clay md:text-lg">
+              <p className="mt-3 max-w-3xl font-display text-lg leading-7 text-clay md:text-xl">
                 {project.englishTitle}
               </p>
+              <p className="mt-5 max-w-2xl border-l border-primary/30 py-0.5 pl-5 text-sm leading-7 text-ink/72 md:mt-6 md:pl-6 md:text-base md:leading-8">
+                {project.summary}
+              </p>
             </div>
-            <div className="relative rounded-lg border border-line/75 bg-white/56 p-7 leading-8 text-ink/68">
-              <div className="mb-5 flex items-center justify-between gap-4 border-b border-line/70 pb-3">
-                <span className="text-[10px] uppercase tracking-[0.22em] text-primary">
-                  Summary
-                </span>
-                <span className="h-1.5 w-1.5 rounded-full bg-primary/45" />
+
+            <div className="relative lg:pt-2">
+              <dl className="grid grid-cols-2 gap-x-6 gap-y-4 border-t border-line/80 pt-5 md:gap-y-5">
+                <ProjectFact label="Type" value={project.type} />
+                <ProjectFact label="Year" value={project.year} />
+                <ProjectFact label="Location" value={project.location} />
+                <ProjectFact label="Scope" value={project.scope} />
+              </dl>
+
+              <div className="mt-4 border-t border-line/75 pt-4 md:mt-5">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-primary">
+                  Keywords
+                </p>
+                <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1.5 text-xs leading-5 text-ink/62">
+                  {project.keywords.map((keyword, index) => (
+                    <span key={keyword} className="inline-flex items-center gap-3">
+                      {index > 0 ? <span className="text-primary/35">/</span> : null}
+                      {keyword}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <p>{project.summary}</p>
             </div>
           </div>
         </motion.div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 pb-10 md:px-8">
-        <motion.div
-          className="grid gap-4 md:grid-cols-2 xl:grid-cols-4"
-          variants={staggerGroup}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.div variants={fadeUp}>
-            <InfoTile index="01" label="Type" value={project.type} />
-          </motion.div>
-          <motion.div variants={fadeUp}>
-            <InfoTile index="02" label="Year" value={project.year} />
-          </motion.div>
-          <motion.div variants={fadeUp}>
-            <InfoTile index="03" label="Location" value={project.location} />
-          </motion.div>
-          <motion.div variants={fadeUp}>
-            <InfoTile index="04" label="Scope" value={project.scope} />
-          </motion.div>
-        </motion.div>
-        <motion.div
-          className="mt-4 rounded-lg border border-line/70 bg-white/46 p-5"
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-        >
-          <p className="mb-3 text-[10px] uppercase tracking-[0.2em] text-primary">
-            Keywords
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {project.keywords.map((keyword) => (
-              <span
-                key={keyword}
-                className="rounded-full border border-line bg-transparent px-3 py-1 text-xs text-ink/62"
-              >
-                {keyword}
-              </span>
-            ))}
-          </div>
-        </motion.div>
-      </section>
-
-      <section className="mx-auto max-w-[1480px] px-4 pb-24 pt-4 md:px-6">
+      <section className="mx-auto max-w-7xl px-5 pb-24 pt-1 md:px-8 md:pt-2">
         <div className="mx-auto flex flex-col items-center gap-10 md:gap-12">
           {detailImages.map((image, index) => (
             <motion.div
@@ -144,7 +102,7 @@ function ProjectDetail() {
                 src={image}
                 alt={`${project.title} portfolio page ${index + 1}`}
                 label={image}
-                className="w-full max-w-[1400px] rounded-md border border-line/70 bg-white/78 p-2 shadow-[0_8px_22px_rgba(47,52,55,0.04)] md:w-[96%]"
+                className="w-full rounded-md border border-line/70 bg-white/78 p-2 shadow-[0_8px_22px_rgba(47,52,55,0.04)]"
                 ratio="aspect-[420/297]"
                 fit="contain"
               />
@@ -156,16 +114,15 @@ function ProjectDetail() {
   );
 }
 
-function InfoTile({ index, label, value }) {
+function ProjectFact({ label, value }) {
   return (
-    <div className="group rounded-lg border border-line/75 bg-white/58 p-5 transition duration-300 hover:border-primary/35">
-      <div className="mb-4 flex items-center justify-between border-b border-line/65 pb-3">
-        <p className="text-[10px] uppercase tracking-[0.18em] text-primary">
-          {index} {label}
-        </p>
-        <span className="h-1 w-1 rounded-full bg-primary/40" />
-      </div>
-      <p className="text-sm leading-6 text-ink/72">{value}</p>
+    <div>
+      <dt className="text-[10px] uppercase tracking-[0.18em] text-primary">
+        {label}
+      </dt>
+      <dd className="mt-2 text-xs leading-5 text-ink/70 md:text-sm md:leading-6">
+        {value}
+      </dd>
     </div>
   );
 }
@@ -183,19 +140,6 @@ function HeaderLinework() {
       <path d="M392 70H488M440 24V116M432 70H448M440 62V78" stroke="currentColor" />
     </svg>
   );
-}
-
-function getProjectIndex(project) {
-  const indexMap = {
-    "k11-flower-shop": "01",
-    "xunyang-residence": "02",
-    "small-retail-store": "03",
-    "senjiangyuan-shipyard": "04",
-    "jiangdong-pocket-park": "05",
-    "nanping-historical-street": "06",
-  };
-
-  return indexMap[project.id] || "00";
 }
 
 function getDisplayTitle(project) {

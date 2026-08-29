@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import DecorativeBackground from "./components/DecorativeBackground.jsx";
+import Seo from "./components/Seo.jsx";
 import Home from "./pages/Home.jsx";
 import CategoryPage from "./pages/CategoryPage.jsx";
 import ProjectDetail from "./pages/ProjectDetail.jsx";
@@ -23,6 +24,7 @@ function App() {
         isContact ? "flex flex-col" : ""
       }`}
     >
+      <Seo />
       <DecorativeBackground />
       <Navbar />
       <main
@@ -38,7 +40,7 @@ function App() {
           <Route path="/projects/:projectId" element={<ProjectDetail />} />
         </Routes>
       </main>
-      {!isHome ? <Footer /> : null}
+      {!isHome ? <Footer showEmail={!isContact} /> : null}
     </div>
   );
 }

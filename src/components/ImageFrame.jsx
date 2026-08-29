@@ -9,6 +9,7 @@ function ImageFrame({
   fit = "cover",
   objectPosition = "center",
   imageClassName = "",
+  priority = false,
 }) {
   const [failed, setFailed] = useState(false);
   const fitClass = fit === "contain" ? "object-contain" : "object-cover";
@@ -22,7 +23,8 @@ function ImageFrame({
         <img
           src={src}
           alt={alt}
-          loading="lazy"
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
           decoding="async"
           className={`h-full w-full ${fitClass} [backface-visibility:hidden] [image-rendering:auto] ${imageClassName}`}
           style={{ objectPosition }}

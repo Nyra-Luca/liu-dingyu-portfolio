@@ -32,7 +32,7 @@ function CategoryCard({ category }) {
             <span className="block font-display text-4xl leading-none">
               {englishTitle}
             </span>
-            <span className="mt-3 block text-lg font-medium tracking-wide text-ink/70">
+            <span className="mt-3 block font-cn-heading text-lg font-bold tracking-wide text-ink/70">
               {chineseTitle}
             </span>
           </h3>

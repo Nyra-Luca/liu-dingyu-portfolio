@@ -16,15 +16,16 @@ function Navbar() {
   return (
     <header className="fixed left-0 right-0 top-0 z-50 border-b border-[rgba(216,211,203,0.48)] bg-[rgba(247,243,236,0.76)] shadow-[0_1px_0_rgba(255,255,255,0.32)_inset] backdrop-blur-[6px]">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
-        <Link to="/" className="group flex items-center gap-3 text-ink">
+        <Link to="/" className="group flex items-center gap-3 font-display text-ink">
           <span className="relative h-2 w-2 rounded-full border border-primary/55">
             <span className="absolute left-1/2 top-1/2 h-px w-5 -translate-x-1/2 -translate-y-1/2 bg-primary/25" />
             <span className="absolute left-1/2 top-1/2 h-5 w-px -translate-x-1/2 -translate-y-1/2 bg-primary/25" />
           </span>
-          <span className="font-display text-xl uppercase leading-none">Liu Dingyu</span>
+          <span className="text-lg font-normal uppercase leading-none tracking-[0.08em]">Liu Dingyu</span>
           <span className="hidden h-px w-8 bg-line transition group-hover:bg-primary/50 sm:block" />
-          <span className="hidden text-[10px] uppercase tracking-[0.24em] text-ink/42 sm:block">
-            Portfolio 2026
+          <span className="hidden items-baseline gap-1.5 text-xs uppercase text-ink/42 sm:inline-flex">
+            <span className="tracking-[0.2em]">Portfolio</span>
+            <span className="font-sans tracking-[0.14em]">2026</span>
           </span>
         </Link>
 
@@ -45,14 +46,19 @@ function Navbar() {
           type="button"
           className="rounded-full border border-line bg-white/35 p-2 text-ink md:hidden"
           onClick={() => setOpen((value) => !value)}
-          aria-label="Toggle navigation"
+          aria-label={open ? "Close navigation" : "Open navigation"}
+          aria-expanded={open}
+          aria-controls="mobile-navigation"
         >
           {open ? <X size={18} /> : <Menu size={18} />}
         </button>
       </nav>
 
       {open ? (
-        <div className="border-t border-line/70 bg-paper/96 px-5 py-4 md:hidden">
+        <div
+          id="mobile-navigation"
+          className="border-t border-line/70 bg-paper/96 px-5 py-4 md:hidden"
+        >
           <div className="flex flex-col gap-4 text-sm uppercase tracking-[0.12em] text-ink/75">
             {navItems.map((item) => (
               <NavLink

@@ -1,11 +1,16 @@
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useAnimationFrame,
+  useMotionValue,
+  useReducedMotion,
+  useTransform,
+} from "framer-motion";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import ImageFrame from "../components/ImageFrame.jsx";
 
 const copy = {
-  designer: "Liu Dingyu / \u5218\u4e01\u745c",
   heroChinese:
     "\u5173\u6ce8\u5546\u4e1a\u7a7a\u95f4\u3001\u5c45\u4f4f\u7a7a\u95f4\u4e0e\u57ce\u5e02\u516c\u5171\u73af\u5883\u8bbe\u8ba1\uff0c\u5c1d\u8bd5\u901a\u8fc7\u7a7a\u95f4\u7ec4\u7ec7\u3001\u573a\u666f\u8425\u9020\u4e0e\u89c6\u89c9\u8868\u8fbe\u56de\u5e94\u4e0d\u540c\u5c3a\u5ea6\u4e0b\u7684\u4f7f\u7528\u9700\u6c42\u3002",
 };
@@ -67,43 +72,35 @@ const buttonGroup = {
 
 function Home() {
   const [hoveredCard, setHoveredCard] = useState(null);
-  const [orbitAngle, setOrbitAngle] = useState(0);
+  const shouldReduceMotion = useReducedMotion();
+  const orbitAngle = useMotionValue(0);
   const targetVelocityRef = useRef(0);
   const currentVelocityRef = useRef(0);
   const touchXRef = useRef(null);
   const touchTimeRef = useRef(null);
   const touchVelocityRef = useRef(0);
 
-  useEffect(() => {
-    let frameId;
-    let previousTime;
+  useAnimationFrame((_, delta) => {
+    if (shouldReduceMotion) return;
 
-    const tick = (time) => {
-      if (previousTime === undefined) previousTime = time;
-      const delta = time - previousTime;
-      previousTime = time;
+    const currentVelocity = currentVelocityRef.current;
+    const targetVelocity = targetVelocityRef.current;
+    const easedVelocity =
+      currentVelocity + (targetVelocity - currentVelocity) * 0.085;
+    currentVelocityRef.current =
+      Math.abs(easedVelocity) < 0.0004 ? 0 : easedVelocity;
 
-      const currentVelocity = currentVelocityRef.current;
-      const targetVelocity = targetVelocityRef.current;
-      const easedVelocity =
-        currentVelocity + (targetVelocity - currentVelocity) * 0.085;
-      currentVelocityRef.current =
-        Math.abs(easedVelocity) < 0.0004 ? 0 : easedVelocity;
-
-      if (Math.abs(currentVelocityRef.current) > 0) {
-        setOrbitAngle(
-          (angle) => (angle + delta * currentVelocityRef.current) % 360,
-        );
-      }
-
-      frameId = window.requestAnimationFrame(tick);
-    };
-
-    frameId = window.requestAnimationFrame(tick);
-    return () => window.cancelAnimationFrame(frameId);
-  }, []);
+    if (Math.abs(currentVelocityRef.current) > 0) {
+      const frameDelta = Math.min(delta, 32);
+      orbitAngle.set(
+        (orbitAngle.get() + frameDelta * currentVelocityRef.current) % 360,
+      );
+    }
+  });
 
   const handleOrbitMove = (event) => {
+    if (shouldReduceMotion) return;
+
     const bounds = event.currentTarget.getBoundingClientRect();
     const yRatio = (event.clientY - bounds.top) / bounds.height - 0.5;
     const distanceFromCenter = Math.abs(yRatio);
@@ -119,6 +116,8 @@ function Home() {
   };
 
   const handleOrbitTouchStart = (event) => {
+    if (shouldReduceMotion) return;
+
     touchXRef.current = event.touches[0]?.clientX ?? null;
     touchTimeRef.current = performance.now();
     touchVelocityRef.current = 0;
@@ -127,6 +126,8 @@ function Home() {
   };
 
   const handleOrbitTouchMove = (event) => {
+    if (shouldReduceMotion) return;
+
     const nextX = event.touches[0]?.clientX;
     if (nextX == null || touchXRef.current == null) return;
 
@@ -138,7 +139,7 @@ function Home() {
     const fingerVelocity = deltaX / deltaTime;
     const speedBoost = 0.52 + Math.min(Math.abs(fingerVelocity) * 0.55, 0.72);
 
-    setOrbitAngle((angle) => (angle + deltaX * speedBoost) % 360);
+    orbitAngle.set((orbitAngle.get() + deltaX * speedBoost) % 360);
     touchVelocityRef.current = Math.max(
       -0.16,
       Math.min(0.16, fingerVelocity * 0.095),
@@ -148,6 +149,8 @@ function Home() {
   };
 
   const handleOrbitTouchEnd = () => {
+    if (shouldReduceMotion) return;
+
     touchXRef.current = null;
     touchTimeRef.current = null;
     currentVelocityRef.current = touchVelocityRef.current;
@@ -157,61 +160,73 @@ function Home() {
 
   return (
     <div className="page-fade min-h-screen pt-24">
-      <section className="relative mx-auto grid min-h-[calc(100vh-6rem)] max-w-7xl items-center gap-12 px-5 pb-16 pt-8 md:grid-cols-[0.95fr_1.05fr] md:px-8">
-        <motion.div initial="hidden" animate="visible" variants={fadeUp}>
-          <p className="mb-5 text-xs uppercase tracking-[0.28em] text-primary">
-            {copy.designer}
-          </p>
-          <h1 className="font-display uppercase leading-[0.93]">
-            <span className="block text-[2.85rem] text-primary/86 md:text-[4.65rem] xl:text-[4.95rem]">
-              LIU DINGYU
+      <section className="relative mx-auto grid min-h-[calc(100vh-6rem)] max-w-7xl items-center gap-4 px-5 pb-8 pt-4 md:grid-cols-[0.95fr_1.05fr] md:gap-12 md:px-8 md:pb-16 md:pt-8">
+        <div className="min-w-0 md:translate-x-[25px] 2xl:-translate-x-[87px]">
+          <motion.div
+            initial={shouldReduceMotion ? false : "hidden"}
+            animate="visible"
+            variants={fadeUp}
+          >
+          <h1 className="min-w-0">
+            <span className="hero-name block pb-1 text-[2.1rem] font-normal normal-case leading-[1.05] tracking-[0.02em] text-primary/80 md:text-[2.2rem] lg:text-[3.35rem] xl:text-[3.8rem]">
+              Liu Dingyu
             </span>
-            <span className="mt-2 block text-[3.35rem] text-ink md:text-[5.55rem] xl:text-[5.85rem]">
+            <span className="hero-portfolio mt-1 block whitespace-nowrap pb-2 text-[2.85rem] font-normal uppercase leading-[1.08] tracking-[0.01em] text-ink md:text-[2.55rem] lg:text-[4.45rem] xl:text-[5.65rem]">
               PORTFOLIO
             </span>
           </h1>
-          <p className="mt-6 text-xl text-clay">Interior & Landscape Design</p>
-          <div className="mt-7 max-w-2xl space-y-4 leading-8 text-ink/70">
+          <p className="mt-5 font-display text-xl text-clay md:mt-6">
+            Interior & Landscape Design
+          </p>
+          <div className="mt-5 max-w-2xl space-y-3 leading-7 text-ink/70 md:mt-7 md:space-y-4 md:leading-8">
             <p>{copy.heroChinese}</p>
-            <p>
+            <p className="hidden sm:block">
               Focused on commercial space, residential interiors, and urban public
               environments, exploring spatial organization, scene-making, and visual
               expression across different design scales.
             </p>
+            <p className="sm:hidden">
+              Focused on commercial, residential, and public-space design across
+              different scales.
+            </p>
           </div>
-          <motion.div
-            className="mt-9 flex flex-wrap gap-3"
-            variants={buttonGroup}
-            initial="hidden"
-            animate="visible"
-          >
-            <HeroButton to="/interior">Interior Works</HeroButton>
-            <HeroButton to="/landscape">Landscape Works</HeroButton>
+            <motion.div
+              className="mt-7 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3 md:mt-9"
+              variants={buttonGroup}
+              initial={shouldReduceMotion ? false : "hidden"}
+              animate="visible"
+            >
+              <HeroButton to="/interior">Interior Works</HeroButton>
+              <HeroButton to="/landscape">Landscape Works</HeroButton>
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
 
         <div
-          className="relative min-h-[430px] overflow-visible pb-0 md:h-[620px] md:min-h-[540px]"
+          className="relative min-h-[405px] overflow-visible pb-0 md:h-[620px] md:min-h-[540px]"
           onMouseMove={handleOrbitMove}
           onMouseLeave={() => {
             targetVelocityRef.current = 0;
             setHoveredCard(null);
           }}
         >
-          <div className="absolute -right-28 left-0 top-0 hidden h-[650px] overflow-hidden md:block">
-            <OrbitGuide />
-            <div className="absolute inset-0">
-              {orbitCards.map((card, index) => (
-                <OrbitCard
-                  key={card.item.id}
-                  {...card}
-                  delay={0.14 + index * 0.08}
-                  orbitAngle={orbitAngle}
-                  isHovered={hoveredCard === card.item.id}
-                  onHoverStart={() => setHoveredCard(card.item.id)}
-                  onHoverEnd={() => setHoveredCard(null)}
-                />
-              ))}
+          <div className="absolute -left-8 -right-28 top-0 hidden h-[650px] -translate-x-[10px] overflow-hidden md:block">
+            <div className="absolute inset-0 origin-center scale-90">
+              <OrbitGuide />
+              <div className="absolute inset-0">
+                {orbitCards.map((card, index) => (
+                  <OrbitCard
+                    key={card.item.id}
+                    {...card}
+                    delay={0.14 + index * 0.08}
+                    orbitAngle={orbitAngle}
+                    reducedMotion={shouldReduceMotion}
+                    isHovered={hoveredCard === card.item.id}
+                    onHoverStart={() => setHoveredCard(card.item.id)}
+                    onHoverEnd={() => setHoveredCard(null)}
+                  />
+                ))}
+              </div>
             </div>
           </div>
 
@@ -230,6 +245,7 @@ function Home() {
                 mobile
                 delay={0.12 + index * 0.06}
                 orbitAngle={orbitAngle}
+                reducedMotion={shouldReduceMotion}
                 isHovered={false}
               />
             ))}
@@ -249,7 +265,7 @@ function HeroButton({ to, children }) {
     <motion.div variants={fadeUp}>
       <Link
         to={to}
-        className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm text-white transition duration-300 hover:bg-clay"
+        className="inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-full bg-primary px-3 py-3 text-[13px] text-white transition duration-300 hover:bg-clay sm:w-auto sm:px-5 sm:text-sm"
       >
         {children} <ArrowRight size={16} />
       </Link>
@@ -266,7 +282,7 @@ function OrbitGuide() {
       aria-hidden="true"
     >
       <ellipse
-        cx="430"
+        cx="498"
         cy="300"
         rx="315"
         ry="250"
@@ -275,7 +291,7 @@ function OrbitGuide() {
         strokeDasharray="4 12"
       />
       <ellipse
-        cx="430"
+        cx="498"
         cy="300"
         rx="264"
         ry="210"
@@ -283,7 +299,6 @@ function OrbitGuide() {
         strokeWidth="0.8"
         strokeDasharray="2 10"
       />
-      <circle cx="430" cy="300" r="3" fill="currentColor" />
     </svg>
   );
 }
@@ -304,7 +319,6 @@ function MobileOrbitGuide() {
         strokeWidth="1"
         strokeDasharray="4 11"
       />
-      <circle cx="260" cy="155" r="3" fill="currentColor" />
     </svg>
   );
 }
@@ -355,92 +369,96 @@ function OrbitCard({
   ratio = "aspect-video",
   fit = "cover",
   delay = 0,
+  reducedMotion = false,
 }) {
   const isRingCard = angle !== undefined;
-  const position = isRingCard
-    ? mobile
-      ? getMobileRingPosition(angle + orbitAngle)
-      : getRingPosition(angle + orbitAngle)
-    : null;
+  const getPosition = (value) =>
+    mobile
+      ? getMobileRingPosition(angle + value)
+      : getRingPosition(angle + value);
+  const orbitX = useTransform(orbitAngle, (value) => getPosition(value).x);
+  const orbitY = useTransform(orbitAngle, (value) => getPosition(value).y);
+  const orbitScale = useTransform(
+    orbitAngle,
+    (value) => getPosition(value).scale,
+  );
+  const orbitZIndex = useTransform(
+    orbitAngle,
+    (value) => getPosition(value).zIndex,
+  );
 
   return (
     <motion.div
-      className={`${className} ${
-        isRingCard
-          ? mobile
-            ? "absolute w-[235px]"
-            : "absolute w-[320px] lg:w-[365px]"
-          : "hover:z-50"
-      }`}
+      className={`${className} absolute left-0 top-0`}
       style={
         isRingCard
           ? {
-              left: position.x,
-              top: position.y,
-              zIndex: isHovered ? 60 : position.zIndex,
-              transform: "translate(-50%, -50%)",
+              x: orbitX,
+              y: orbitY,
+              zIndex: isHovered ? 60 : orbitZIndex,
             }
           : undefined
       }
-      initial={isRingCard ? { opacity: 0 } : { opacity: 0, y: 22 }}
-      animate={
-        isRingCard
-          ? { opacity: position.opacity, scale: position.scale }
-          : { opacity: 1, y: 0 }
-      }
-      whileHover={{ zIndex: 60 }}
-      transition={{
-        opacity: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
-        y: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
-        x: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
-      }}
     >
-      <motion.div
-        className="relative group"
-        initial={{ scale: 0.96 }}
-        animate={{ scale: 1 }}
-        onHoverStart={onHoverStart}
-        onHoverEnd={onHoverEnd}
-        whileHover={{
-          scale: 1.04,
-          opacity: 1,
-          zIndex: 60,
-          boxShadow: "0 20px 42px rgba(94, 131, 160, 0.16)",
-        }}
-        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+      <div className="-translate-x-1/2 -translate-y-1/2">
+        <motion.div
+          className={mobile ? "w-[235px]" : "w-[320px] lg:w-[365px]"}
+          style={{ scale: orbitScale }}
+          initial={reducedMotion ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+            opacity: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
+          }}
         >
-          <Link to={item.to} className="block">
-            <ImageFrame
-              src={item.src}
-              alt={`${item.label} portfolio fragment`}
-              label={item.label}
-              className="rounded-lg border border-line bg-white p-2 shadow-soft transition duration-300 group-hover:border-primary/35"
-              imageClassName="transition duration-500"
-              ratio={ratio}
-              fit={fit}
-            />
-            <span className="absolute bottom-4 left-4 max-w-[78%] rounded-full border border-line/70 bg-paper/85 px-3 py-1.5 text-[10px] uppercase tracking-[0.16em] text-primary/85 shadow-[0_6px_18px_rgba(47,52,55,0.08)]">
-              {item.label}
-            </span>
-          </Link>
-      </motion.div>
+          <motion.div
+            className="relative group"
+            onHoverStart={onHoverStart}
+            onHoverEnd={onHoverEnd}
+            whileHover={
+              reducedMotion
+                ? { zIndex: 60 }
+                : {
+                    scale: 1.04,
+                    opacity: 1,
+                    zIndex: 60,
+                    boxShadow: "0 20px 42px rgba(94, 131, 160, 0.16)",
+                  }
+            }
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <Link to={item.to} className="block">
+              <ImageFrame
+                src={item.src}
+                alt={`${item.label} portfolio fragment`}
+                label={item.label}
+                priority={item.id === "k11"}
+                className="rounded-lg border border-line bg-white p-2 shadow-soft transition duration-300 group-hover:border-primary/35"
+                imageClassName="transition duration-500"
+                ratio={ratio}
+                fit={fit}
+              />
+            </Link>
+          </motion.div>
+        </motion.div>
+      </div>
     </motion.div>
   );
 }
 
 function getRingPosition(angle) {
-  const centerX = 430;
+  const centerX = 498;
   const centerY = 300;
   const radiusX = 315;
   const radiusY = 250;
   const radians = (angle * Math.PI) / 180;
   const depth = (1 - Math.cos(radians)) / 2;
+  const focus = Math.pow(depth, 3);
 
   return {
     x: centerX + Math.cos(radians) * radiusX,
     y: centerY + Math.sin(radians) * radiusY,
     opacity: 1,
-    scale: 0.68 + depth * 0.28,
+    scale: 0.72 + focus * 0.4,
     zIndex: Math.round(10 + depth * 35),
   };
 }
@@ -451,12 +469,13 @@ function getMobileRingPosition(angle) {
   const radius = 170;
   const radians = (angle * Math.PI) / 180;
   const depth = (1 - Math.cos(radians)) / 2;
+  const focus = Math.pow(depth, 3);
 
   return {
     x: centerX + Math.cos(radians) * radius,
     y: centerY + Math.sin(radians) * radius,
     opacity: 1,
-    scale: 0.62 + depth * 0.28,
+    scale: 0.7 + focus * 0.34,
     zIndex: Math.round(10 + depth * 35),
   };
 }

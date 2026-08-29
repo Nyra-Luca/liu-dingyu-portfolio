@@ -1,17 +1,69 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preload" as="image" href="/images/home-background.jpg" />
-    <link rel="preload" as="image" href="/images/interior-background.jpg" />
-    <link rel="preload" as="image" href="/images/landscape-background.jpg" />
+    <link
+      rel="preload"
+      as="font"
+      href="/fonts/CormorantGaramond.ttf"
+      type="font/ttf"
+      crossorigin
+    />
+    <script>
+      (() => {
+        const pathname = window.location.pathname;
+        const background =
+          pathname === "/interior"
+            ? "/images/interior-background.jpg"
+            : pathname === "/landscape"
+              ? "/images/landscape-background.jpg"
+              : pathname === "/" || pathname === "/about" || pathname === "/contact"
+                ? "/images/home-background.jpg"
+                : null;
+
+        if (background) {
+          const preload = document.createElement("link");
+          preload.rel = "preload";
+          preload.as = "image";
+          preload.href = background;
+          document.head.appendChild(preload);
+        }
+      })();
+    </script>
     <meta
       name="description"
-      content="Liu Dingyu portfolio for interior and landscape design works."
+      content="刘丁瑜环境设计个人作品集，涵盖室内设计、景观设计、商业空间、居住空间与城市公共环境设计。"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#F1EEE6" />
+    <link rel="canonical" href="https://liu-dingyu-portfolio.pages.dev/" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content="Liu Dingyu Portfolio" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="刘丁瑜｜室内设计与景观设计作品集" />
+    <meta
+      property="og:description"
+      content="刘丁瑜环境设计个人作品集，涵盖室内设计、景观设计、商业空间、居住空间与城市公共环境设计。"
+    />
+    <meta property="og:url" content="https://liu-dingyu-portfolio.pages.dev/" />
+    <meta
+      property="og:image"
+      content="https://liu-dingyu-portfolio.pages.dev/images/home-background.jpg"
+    />
+    <meta property="og:image:alt" content="刘丁瑜环境设计作品集首页" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="刘丁瑜｜室内设计与景观设计作品集" />
+    <meta
+      name="twitter:description"
+      content="刘丁瑜环境设计个人作品集，涵盖室内设计、景观设计、商业空间、居住空间与城市公共环境设计。"
+    />
+    <meta
+      name="twitter:image"
+      content="https://liu-dingyu-portfolio.pages.dev/images/home-background.jpg"
     />
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <title>LIU DINGYU PORTFOLIO</title>
+    <title>刘丁瑜｜室内设计与景观设计作品集</title>
   </head>
   <body>
     <div id="root"></div>

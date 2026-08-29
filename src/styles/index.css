@@ -2,6 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/CormorantGaramond.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Daizen";
+  src: url("/fonts/Daizen.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Zhuque Fangsong Portfolio";
+  src: url("/fonts/ZhuqueFangsong-Portfolio.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Han Sans CN Portfolio";
+  src: url("/fonts/SourceHanSansCN-Normal-Portfolio.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Han Sans CN Portfolio";
+  src: url("/fonts/SourceHanSansCN-Bold-Portfolio.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 :root {
   --color-paper: #f1eee6;
   --color-primary: #5e83a0;
@@ -33,17 +73,49 @@ body {
     sans-serif;
 }
 
-.font-cn-serif {
-  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+.font-cn-display {
+  font-family: "Zhuque Fangsong Portfolio", "Source Han Serif SC", "Noto Serif SC", "Songti SC", serif;
+  font-synthesis: none;
+  font-weight: 400;
+}
+
+.font-cn-heading {
+  font-family: "Source Han Sans CN Portfolio", "Source Han Sans SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  font-synthesis: none;
 }
 
 .font-cn-sans {
-  font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", sans-serif;
+  font-family: "Source Han Sans CN Portfolio", "Source Han Sans SC", "Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-synthesis: none;
+}
+
+.hero-name {
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  font-synthesis: none;
+}
+
+.hero-portfolio {
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  font-synthesis: none;
 }
 
 button,
 a {
   -webkit-tap-highlight-color: transparent;
+}
+
+:where(a, button):focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.nav-link:focus-visible {
+  color: var(--color-primary);
+}
+
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 img {
@@ -194,6 +266,16 @@ img {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .page-fade {
+    animation: none;
   }
 }
 

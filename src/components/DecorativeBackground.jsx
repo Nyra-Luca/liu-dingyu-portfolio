@@ -134,9 +134,6 @@ function DecorativeBackground() {
         <span className="absolute left-[calc(50%-3px)] top-[calc(50%-3px)] h-1.5 w-1.5 rounded-full border border-current" />
       </div>
 
-      <div className="fixed bottom-6 right-8 z-40 hidden rounded-tl-lg border-t border-line/50 bg-paper/58 px-3 pb-1 pt-3 text-right text-[10px] uppercase tracking-[0.28em] text-ink/26 backdrop-blur-[3px] md:block">
-        Site Fragments / Waterfront Memory / Drawing Notes
-      </div>
     </div>
   );
 }

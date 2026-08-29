@@ -8,12 +8,14 @@ const categoryTitles = {
   interior: {
     chinese: "\u5ba4\u5185\u8bbe\u8ba1",
     english: "Interior Design",
-    note: "Floor plan / circulation / material atmosphere",
+    englishSummary:
+      "Commercial, residential, and retail interiors shaped through circulation, material atmosphere, and clear spatial expression.",
   },
   landscape: {
     chinese: "\u666f\u89c2\u8bbe\u8ba1",
     english: "Landscape Design",
-    note: "Site reading / shoreline / public landscape",
+    englishSummary:
+      "Urban renewal, waterfront, and public landscapes developed through site reading, movement, and everyday use.",
   },
 };
 
@@ -42,55 +44,38 @@ function CategoryPage({ category }) {
     <div className="page-fade relative isolate overflow-hidden pt-20 md:pt-24">
       <CategoryDrawing category={category} />
 
-      <section className="relative z-10 mx-auto max-w-7xl px-5 pb-10 pt-6 md:px-8">
+      <section className="relative z-10 mx-auto max-w-7xl px-5 pb-7 pt-5 md:px-8">
         <Link
           className="inline-flex items-center gap-2 rounded-full border border-primary/45 bg-primary/10 px-5 py-2.5 text-sm font-medium text-primary transition duration-300 hover:border-clay/55 hover:bg-clay/10 hover:text-clay"
           to="/"
         >
-          <ArrowLeft size={17} /> Back to Home
+          <ArrowLeft size={17} /> 返回首页
         </Link>
 
         <motion.div
-          className="relative mt-9 overflow-hidden border-y border-line/80 py-12"
+          className="relative mt-6 overflow-hidden border-y border-line/80 py-8 md:py-9"
           variants={fadeUp}
           initial="hidden"
           animate="visible"
         >
           <CategoryHeaderLinework category={category} />
-          <div className="relative grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-            <div>
-              <div className="mb-6 flex items-center gap-4">
-                <span className="relative h-3 w-3 rounded-full border border-primary/70">
-                  <span className="absolute left-1/2 top-1/2 h-px w-8 -translate-x-1/2 -translate-y-1/2 bg-primary/25" />
-                  <span className="absolute left-1/2 top-1/2 h-8 w-px -translate-x-1/2 -translate-y-1/2 bg-primary/25" />
-                </span>
-                <p className="text-xs uppercase tracking-[0.24em] text-primary">
-                  Curated Collection
-                </p>
-                <span className="h-px flex-1 bg-line/80" />
-              </div>
-              <h1 className="text-ink">
-                <span className="font-cn-serif block text-5xl font-normal leading-none md:text-7xl">
-                  {title.chinese}
-                </span>
-                <span className="mt-5 block font-display text-3xl uppercase tracking-[0.08em] text-primary/82 md:text-4xl">
-                  {title.english}
-                </span>
-              </h1>
-              <p className="mt-5 text-sm uppercase tracking-[0.18em] text-ink/42">
-                {categoryInfo.subtitle}
-              </p>
-            </div>
+          <div className="relative max-w-5xl">
+            <h1 className="text-ink">
+              <span className="font-cn-display block text-5xl leading-none md:text-6xl lg:text-7xl">
+                {title.chinese}
+              </span>
+              <span className="mt-4 block font-display text-3xl uppercase tracking-[0.08em] text-primary/82 md:text-4xl">
+                {title.english}
+              </span>
+            </h1>
 
-            <div className="rounded-lg border border-line/75 bg-white/56 p-7 leading-8 text-ink/68 backdrop-blur-[2px] lg:-mt-7">
-              <div className="mb-5 flex items-center justify-between gap-4 border-b border-line/70 pb-3">
-                <span className="text-[10px] uppercase tracking-[0.22em] text-primary">
-                  Collection Note
-                </span>
-                <span className="h-1.5 w-1.5 rounded-full bg-primary/45" />
-              </div>
-              <p>{categoryInfo.description}</p>
-              <p className="mt-4">{categoryInfo.englishDescription}</p>
+            <div className="mt-7 grid max-w-4xl gap-4 md:grid-cols-[1.08fr_0.92fr] md:gap-9">
+              <p className="max-w-xl leading-7 text-ink/70">
+                {categoryInfo.description}
+              </p>
+              <p className="border-l border-primary/25 pl-5 text-sm leading-7 text-ink/56 md:pl-7">
+                {title.englishSummary}
+              </p>
             </div>
           </div>
         </motion.div>
@@ -98,42 +83,58 @@ function CategoryPage({ category }) {
 
       <section className="relative z-10 mx-auto w-full max-w-7xl overflow-hidden px-5 pb-24 md:px-8">
         <motion.div
-          className="mb-8 flex items-end justify-between gap-6 border-b border-line/70 pb-5"
+          className="mb-6 flex items-baseline justify-between gap-5 border-b border-line/70 pb-4"
           variants={fadeUp}
           initial="hidden"
           animate="visible"
         >
-          <div>
-            <div className="flex items-center gap-3">
-              <span className="h-1.5 w-1.5 rounded-full border border-primary/65" />
-              <p className="text-xs uppercase tracking-[0.24em] text-primary">
-                Portfolio Works
-              </p>
-            </div>
-            <p className="mt-3 text-xs uppercase tracking-[0.18em] text-ink/45">
-              {String(categoryProjects.length).padStart(2, "0")} projects in this collection
-            </p>
-          </div>
-          <p className="hidden max-w-sm text-right text-xs uppercase leading-6 tracking-[0.18em] text-ink/30 md:block">
-            {title.note}
+          <p className="text-xs uppercase tracking-[0.24em] text-primary">
+            Portfolio Works
+          </p>
+          <p className="text-right text-xs uppercase tracking-[0.16em] text-ink/42">
+            {String(categoryProjects.length).padStart(2, "0")} projects
           </p>
         </motion.div>
         <motion.div
-          className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)] gap-8 md:grid-cols-2 xl:grid-cols-3"
+          className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)] items-start gap-6 md:grid-cols-2 md:gap-8"
           variants={staggerGroup}
           initial="hidden"
           animate="visible"
           key={category}
         >
-          {categoryProjects.map((project) => (
-            <motion.div
-              key={project.id}
-              className="w-full min-w-0 max-w-full"
-              variants={fadeUp}
-            >
-              <ProjectCard project={project} compact />
-            </motion.div>
-          ))}
+          {categoryProjects.map((project, index) => {
+            const featured = index === 0;
+            const imageRatio = featured
+              ? undefined
+              : category === "landscape"
+                ? index === 1
+                  ? "aspect-[16/10]"
+                  : "aspect-[4/3]"
+                : index === 1
+                  ? "aspect-[4/3]"
+                  : "aspect-[16/10]";
+            const offsetClass =
+              index === 2
+                ? category === "landscape"
+                  ? "md:mt-12"
+                  : "md:mt-6"
+                : "";
+
+            return (
+              <motion.div
+                key={project.id}
+                className={`w-full min-w-0 max-w-full ${featured ? "md:col-span-2" : ""} ${offsetClass}`}
+                variants={fadeUp}
+              >
+                <ProjectCard
+                  project={project}
+                  compact
+                  featured={featured}
+                  imageRatio={imageRatio}
+                />
+              </motion.div>
+            );
+          })}
         </motion.div>
       </section>
     </div>
