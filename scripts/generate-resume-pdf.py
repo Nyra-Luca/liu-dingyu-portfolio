@@ -52,9 +52,9 @@ NAME_EN = style("NameEN", 11, 13, BLUE, "Cormorant", tracking=1.2)
 CONTACT = style("Contact", 8.45, 12.8, MUTED)
 SECTION_CN = style("SectionCN", 10.8, 13, BLUE, font="SourceHanBold")
 SECTION_EN = style("SectionEN", 10.8, 13, BLUE, "Cormorant", tracking=0.7)
-ITEM_TITLE = style("ItemTitle", 9.7, 13, INK, font="SourceHanBold")
-META = style("Meta", 8.2, 11.2, BLUE)
-BODY = style("Body", 8.7, 13.4, MUTED)
+ITEM_TITLE = style("ItemTitle", 9.9, 13.2, INK, font="SourceHanBold", spaceAfter=1.15 * mm)
+META = style("Meta", 8.55, 11.5, BLUE, spaceAfter=0.2 * mm)
+BODY = style("Body", 9.5, 13.5, MUTED)
 
 
 class ResumeDoc(BaseDocTemplate):
@@ -64,8 +64,8 @@ class ResumeDoc(BaseDocTemplate):
             pagesize=A4,
             leftMargin=12.5 * mm,
             rightMargin=12.5 * mm,
-            topMargin=11.5 * mm,
-            bottomMargin=11.5 * mm,
+            topMargin=8.5 * mm,
+            bottomMargin=8.8 * mm,
             title="刘丁瑜 - 环境设计个人简历",
             author="刘丁瑜",
             subject="室内设计与环境设计个人简历",
@@ -112,12 +112,12 @@ def section_header(_number, english, chinese):
     table.setStyle(TableStyle([
         ("VALIGN", (0, 0), (-1, -1), "BOTTOM"),
         ("LINEBELOW", (0, 0), (-1, -1), 0.7, BLUE),
-        ("TOPPADDING", (0, 0), (-1, -1), 2.7 * mm),
+        ("TOPPADDING", (0, 0), (-1, -1), 1.5 * mm),
         ("BOTTOMPADDING", (0, 0), (-1, -1), 1.25 * mm),
         ("LEFTPADDING", (0, 0), (-1, -1), 0),
         ("RIGHTPADDING", (0, 0), (-1, -1), 0),
     ]))
-    table.spaceAfter = 2.25 * mm
+    table.spaceAfter = 1.8 * mm
     return table
 
 
@@ -125,7 +125,7 @@ def entry(title, meta, paragraphs, marker=False):
     title_text = f"■  {title}" if marker else title
     parts = [Paragraph(title_text, ITEM_TITLE), Paragraph(meta, META)]
     parts.extend(Paragraph(paragraph, BODY) for paragraph in paragraphs)
-    parts.append(Spacer(1, 1.6 * mm))
+    parts.append(Spacer(1, 0.8 * mm))
     return KeepTogether(parts)
 
 
@@ -139,7 +139,7 @@ def bullet_rows(rows):
         ("LEFTPADDING", (0, 0), (-1, -1), 0),
         ("RIGHTPADDING", (0, 0), (-1, -1), 0),
         ("TOPPADDING", (0, 0), (-1, -1), 0),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 0.85 * mm),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 0.45 * mm),
     ]))
     return table
 
@@ -155,7 +155,7 @@ def header_block():
             [
                 [Paragraph("出生年月：1999.09", CONTACT), Paragraph("政治面貌：中共党员", CONTACT)],
                 [Paragraph("联系电话：17336464991", CONTACT), Paragraph('<link href="mailto:17336464991@163.com">电子邮箱：17336464991@163.com</link>', CONTACT)],
-                [Paragraph("微信号：17336464991", CONTACT), Paragraph('<link href="https://liu-dingyu-portfolio.pages.dev">作品集：liu-dingyu-portfolio.pages.dev</link>', CONTACT)],
+                [Paragraph("微信号：nyraLuca99", CONTACT), Paragraph('<link href="https://liu-dingyu-portfolio.pages.dev">作品集：liu-dingyu-portfolio.pages.dev</link>', CONTACT)],
             ],
             colWidths=[58 * mm, 99 * mm],
             style=TableStyle([

@@ -104,6 +104,14 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  html.blueprint-cursor-enabled,
+  html.blueprint-cursor-enabled body,
+  html.blueprint-cursor-enabled body * {
+    cursor: none !important;
+  }
+}
+
 :where(a, button):focus-visible {
   outline: 3px solid var(--color-primary);
   outline-offset: 3px;

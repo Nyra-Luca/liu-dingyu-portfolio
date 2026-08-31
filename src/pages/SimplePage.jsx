@@ -41,7 +41,7 @@ const profile = {
   contact: [
     { icon: Mail, label: "Email", value: "17336464991@163.com", href: portfolioEmailHref },
     { icon: Phone, label: "Phone", value: "17336464991" },
-    { icon: MessageCircle, label: "WeChat", value: "17336464991" },
+    { icon: MessageCircle, label: "WeChat", value: "nyraLuca99" },
     { icon: MapPin, label: "Based in", value: "China" },
   ],
 };
@@ -593,7 +593,7 @@ function SimplePage({ type }) {
               <div className="flex items-center justify-between gap-6 border-t border-line/70 py-5 sm:px-1">
                 <span>
                   <span className="block text-xs uppercase tracking-[0.18em] text-ink/45">WeChat</span>
-                  <span className="mt-2 block font-sans text-2xl text-ink sm:text-3xl">17336464991</span>
+                  <span className="mt-2 block font-sans text-2xl text-ink sm:text-3xl">nyraLuca99</span>
                 </span>
                 <MessageCircle className="shrink-0 text-primary" size={22} />
               </div>

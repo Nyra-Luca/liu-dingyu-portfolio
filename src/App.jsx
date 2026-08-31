@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import DecorativeBackground from "./components/DecorativeBackground.jsx";
+import BlueprintCursor from "./components/BlueprintCursor.jsx";
 import Seo from "./components/Seo.jsx";
 import Home from "./pages/Home.jsx";
 import CategoryPage from "./pages/CategoryPage.jsx";
@@ -26,6 +27,7 @@ function App() {
     >
       <Seo />
       <DecorativeBackground />
+      <BlueprintCursor />
       <Navbar />
       <main
         className={`relative z-10 ${isContact ? "flex-1" : ""}`}
